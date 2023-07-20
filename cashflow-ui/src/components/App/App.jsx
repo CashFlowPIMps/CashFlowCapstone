@@ -7,7 +7,12 @@ import { useState } from 'react'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
-  const [appState, setAppState] = useState(false)
+  const [appState, setAppState] = useState({
+    user: {},
+    isAuthenticated: false,
+    goals: [],
+    quizzes: []
+  })
   // Sets background color based on dark/light mode
   const bgColor = useColorModeValue('var(--grey)', 'var(--midnight)');
 
