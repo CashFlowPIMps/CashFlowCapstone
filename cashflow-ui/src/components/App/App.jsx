@@ -9,7 +9,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
   const [appState, setAppState] = useState({
     user: {},
-    isAuthenticated: false,
+    isAuthenticated: true,
     goals: [],
     quizzes: []
   })
@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="app" style={{ backgroundColor: bgColor }}>
     <BrowserRouter>
-    <Navbar/>
+    <Navbar setAppState={setAppState} appState={appState}/>
         <Routes>
           <Route path="/" element={<> </>} />
           <Route path="/about" element={<AboutGrid />} />

@@ -15,20 +15,25 @@ import {
   useColorMode,
   Center,
   Img,
+  MenuItemOption,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
   
 
-export default function Navbar() {
+export default function Navbar({setAppState, appState}) {
   const { colorMode, toggleColorMode } = useColorMode();
-  const Links = ['About', 'Register', 'Login'];
-
+  const navLinks = ['About', 'Register', 'Login'];
+  const handleLogout = () =>{
+    //localStorage.removeItem("CashFlow_Token")
+    setAppState((appState) => ({...appState, user:{}, isAuthenticated: false}))
+    console.log("logged out")
+    //window.location.reload();
+}
   const NavLink = ({ children }) => {
       const handleClick = () => {
         window.location.href = children;
       };
-    
       return (
         <span
           onClick={handleClick}
@@ -46,6 +51,18 @@ export default function Navbar() {
         </span>
       );
     };
+    const SideLink = ({ children, to }) => {
+      const handleClick = () => {
+        window.location.href = to;
+      };
+    
+      return (
+        <span onClick={handleClick}>
+          {children}
+        </span>
+      );
+    };
+    
   return (
     <>
       <Box bg={useColorModeValue('var(--grey)', 'var(--midnight)')} px={4} position={'relative'}>
@@ -61,76 +78,74 @@ export default function Navbar() {
 
         {/* Navbar that links to pages on site  */}
 
-        <HStack
-              as={'nav'}
-              spacing={4}
-              display={{ base: 'none', md: 'flex' }}>
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
-            </HStack>
-
-          <Flex alignItems={'center'}>
+                 {/* TODO: Dynamically render sidebar if user is logged in */}
+                 {!appState.isAuthenticated ? 
+                 <HStack
+                 as={'nav'}
+                 spacing={4}
+                 display={{ base: 'none', md: 'flex' }}>
+                 {navLinks.map((link) => (
+                   <NavLink key={link}>{link}</NavLink>
+                 ))}
+               </HStack>
+                 : 
+                 <Menu position={'fixed'}>
+                 <MenuButton
+                   as={Button}
+                   rounded={'full'}
+                   variant={'link'}
+                   cursor={'pointer'}
+                   minW={0}
+                 >
+                   <Avatar
+                     size={'sm'}
+                     // TODO: Insert profile image from user
+                     src={'https://avatars.dicebear.com/api/male/username.svg'}
+                   />
+                 </MenuButton>
+              
+                 {/* Sidebar with user information */}
+                 <MenuList alignItems={'right'} zIndex={9999}>
+                   <br />
+                   
+                     <Avatar
+                       size={'2xl'}
+                       src={'https://avatars.dicebear.com/api/male/username.svg'}
+                     />
+                     {/* TODO: Insert profile image from user */}
+                   
+                   <br />
+                   <Center>
+                     <p>Username</p> 
+                     {/* TODO: Insert username from user */}
+                   </Center>
+                   <Center>
+                     <p>Points: XXXX</p> 
+                     {/* TODO: Insert points from user */}
+                   </Center>
+                   <br />
+                   <MenuDivider />
+                   <MenuItem>
+                   <SideLink to="/profile">Your Profile</SideLink>
+                 </MenuItem>
+                   <MenuItem>
+                   <SideLink to="/dashboard">Learning Dashboard</SideLink>
+                   </MenuItem>
+                   <MenuItem>
+                   <SideLink to="/goals">Goals</SideLink>
+                   </MenuItem>
+                   <MenuItem>
+                   <Link to="/" onClick={handleLogout}>Logout</Link>
+                   </MenuItem>
+                 </MenuList>
+               </Menu>
+                 }
+                 <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
               <Button onClick={toggleColorMode}>
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
               </Button>
-
-              <Menu position={'fixed'}>
-                <MenuButton
-                  as={Button}
-                  rounded={'full'}
-                  variant={'link'}
-                  cursor={'pointer'}
-                  minW={0}
-                >
-                  <Avatar
-                    size={'sm'}
-                    // TODO: Insert profile image from user
-                    src={'https://avatars.dicebear.com/api/male/username.svg'}
-                  />
-                </MenuButton>
-             
-
-                {/* TODO: Dynamically render sidebar if user is logged in */}
-                
-                {/* Sidebar with user information */}
-                <MenuList alignItems={'center'} zIndex={9999}>
-                  <br />
-                  <Center>
-                    <Avatar
-                      size={'2xl'}
-                      src={'https://avatars.dicebear.com/api/male/username.svg'}
-                    />
-                    {/* TODO: Insert profile image from user */}
-                  </Center>
-                  <br />
-                  <Center>
-                    <p>Username</p> 
-                    {/* TODO: Insert username from user */}
-                  </Center>
-                  <Center>
-                    <p>Points: XXXX</p> 
-                    {/* TODO: Insert points from user */}
-                  </Center>
-                  <br />
-                  <MenuDivider />
-                  {/* TODO: Add routes to sidebar links */}
-                  <MenuItem>
-                    <Link to="/profile">Your Profile</Link>
-                    </MenuItem>
-                    <MenuItem>
-                        <Link to="/dashboard">Learning Dashboard</Link>
-                    </MenuItem>
-                    <MenuItem>
-                        <Link to="/goals">Goals</Link>
-                    </MenuItem>
-                    {/* TODO: Does this link to logout or is a function called?  */}
-                    <MenuItem>
-                        <Link to="/logout">Logout</Link>
-                    </MenuItem>
-                </MenuList>
-              </Menu>
+              
             </Stack>
           </Flex>
         </Flex>
