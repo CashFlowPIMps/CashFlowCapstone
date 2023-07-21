@@ -67,17 +67,17 @@ export default function Navbar({setAppState, appState}) {
     <>
       <Box bg={useColorModeValue('var(--grey)', 'var(--midnight)')} px={4} position={'relative'}>
         {/* Clicking on logo leads back to homepage */}
-        <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+        <Flex h={20} alignItems={'center'} justifyContent={'space-between'}>
          <Link to='/'>
          <Box><img
           src={"/logo.png"} 
-          width={100} height={100}
+          width={90} height={90}
             /></Box>
          </Link>
          
 
         {/* Navbar that links to pages on site  */}
-
+        <Flex>
                  {/* TODO: Dynamically render sidebar if user is logged in */}
                  {!appState.isAuthenticated ? 
                  <HStack
@@ -89,8 +89,9 @@ export default function Navbar({setAppState, appState}) {
                  ))}
                </HStack>
                  : 
+                 
                  <Menu position={'fixed'}>
-                 <MenuButton
+                 <MenuButton 
                    as={Button}
                    rounded={'full'}
                    variant={'link'}
@@ -103,17 +104,16 @@ export default function Navbar({setAppState, appState}) {
                      src={'https://avatars.dicebear.com/api/male/username.svg'}
                    />
                  </MenuButton>
-              
+                 
                  {/* Sidebar with user information */}
-                 <MenuList alignItems={'right'} zIndex={9999}>
+                 <MenuList zIndex={9999}>
                    <br />
-                   
-                     <Avatar
+                   {/* TODO: Insert profile image from user */}
+                   <center><Avatar
                        size={'2xl'}
                        src={'https://avatars.dicebear.com/api/male/username.svg'}
                      />
-                     {/* TODO: Insert profile image from user */}
-                   
+                     </center>
                    <br />
                    <Center>
                      <p>Username</p> 
@@ -140,13 +140,14 @@ export default function Navbar({setAppState, appState}) {
                  </MenuList>
                </Menu>
                  }
+
                  <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
               <Button onClick={toggleColorMode}>
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
               </Button>
-              
             </Stack>
+          </Flex>
           </Flex>
         </Flex>
       </Box>
