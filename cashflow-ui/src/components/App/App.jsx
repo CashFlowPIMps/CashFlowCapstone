@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import apiClient from "../../services/apiClient";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Register from '../Register/Register'
+import GoalsTracker from '../GoalsTracker/GoalsTracker'
 import Home from '../Home/Home';
 
 function App() {
@@ -64,7 +65,7 @@ function App() {
           <Route path="/register" element={<Register setAppState={setAppState}/>} />
           <Route path="/login" element={<Login setAppState={setAppState}/>} />
           <Route path="/profile" element={<></>} />
-          <Route path="/goals" element={<></>} />
+          <Route path="/goals" element={<GoalsTracker appState={appState}/>} />
           <Route path="/dashboard" element={<></>} />
       </Routes>
       </BrowserRouter>
