@@ -7,7 +7,10 @@ import {
   Heading,
   Text,
   Container,
-  Image
+  Image,
+  List,
+  UnorderedList,
+  ListItem
 } from '@chakra-ui/react';
 import Slider from 'react-slick';
 import modulesInfo from '../../../../cashflow-api/modules/modulesInfo.json';
@@ -40,14 +43,17 @@ export default function ModuleInfo() {
   const moduleDataArray = modulesInfo.bank_account_basics;
 
   return (
+    <>
+    <Heading display={'flex'} justifyContent={'center'} >{moduleDataArray.title}</Heading>
     <Box
       display="flex"
       justifyContent="center"
       alignItems="center"
       height="100vh" 
     >
+      
       <Image src='marcus.png' position={'absolute'} top={'25px'} ml={'30px'} zIndex={'1'} />
-      <Box position={'relative'} height={'600px'} width={'800px'} overflow={'hidden'} borderRadius={'3xl'} backgroundColor={'var(--lightblue)'}>
+      <Box position={'relative'} height={'600px'} width={'800px'} overflow={'scroll'} borderRadius={'3xl'} backgroundColor={'var(--lightblue)'}>
         {/* Left Icon */}
         <IconButton
           aria-label="left-arrow"
@@ -74,42 +80,53 @@ export default function ModuleInfo() {
         />
         {/* Slider */}
         <Slider {...settings} ref={(slider) => setSlider(slider)}>
-          {moduleDataArray.map((moduleData, index) => (
-            <Box
-              key={index}
-              height={'6xl'}
-              position="absolute"
-              backgroundPosition="center"
-              backgroundRepeat="no-repeat"
-              left={`${index * 100}%`} // Adjust the offset based on the index
-            >
-              {/* This is the block you need to change, to customize the caption */}
-              <Container size="container.lg" height="600px" position="relative">
-                <Heading 
-                  textAlign={'center'}
-                  mt={'100px'}
-                  fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
+        {moduleDataArray.sections.map((moduleData, index) => (
+          <Box
+            key={index}
+            height={'6xl'}
+            position="absolute"
+            backgroundPosition="center"
+            backgroundRepeat="no-repeat"
+            left={`${index * 100}%`}
+          >
+            <Container size="container.lg" height="600px" pt={'20px'}>
+              <Heading
+                textAlign={'center'}
+                mt={'180px'}
+                fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
+                color="var(--midnight)"
+              >
+                {moduleData.title}
+              </Heading>
+              <Stack
+                spacing={6}
+                w={'full'}
+                maxW={'lg'}
+                position="absolute"
+                top="50%"
+                transform="translate(0, -50%)"
+              >
+                <List
                   color="var(--midnight)"
+                  fontWeight={'bold'}
+                  mt={'50px'}
+                  position={'relative'}
+                  pl={0}
+                  styleType="none"
                 >
-                  {moduleData.title}
-                </Heading>
-                <Stack
-                  spacing={6}
-                  w={'full'}
-                  maxW={'lg'}
-                  position="absolute"
-                  top="50%"
-                  transform="translate(0, -50%)"
-                >
-                  <Text textAlign={'center'} color="var(--midnight)" >
-                    {moduleData.text}
-                  </Text>
-                </Stack>
-              </Container>
-            </Box>
-          ))}
-        </Slider>
+                  {moduleData.content.map((line, idx) => (
+                    <ListItem key={idx} ml={0} pl={4}>
+                      {line}
+                    </ListItem>
+                  ))}
+                </List>
+              </Stack>
+            </Container>
+          </Box>
+        ))}
+      </Slider>
       </Box>
     </Box>
+    </>
   );
 }
