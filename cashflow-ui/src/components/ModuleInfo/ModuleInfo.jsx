@@ -10,6 +10,8 @@ import {
   Image
 } from '@chakra-ui/react';
 import Slider from 'react-slick';
+import modulesInfo from '../../../../cashflow-api/modules/modulesInfo.json';
+
 
 // Settings for the slider
 const settings = {
@@ -27,7 +29,6 @@ export default function ModuleInfo() {
   // As we have used custom buttons, we need a reference variable to
   // change the state
   const [slider, setSlider] = useState(null);
-
   // These are the breakpoints which change the position of the
   // buttons as the screen size changes
   const top = useBreakpointValue({ base: '90%', md: '50%' });
@@ -36,20 +37,7 @@ export default function ModuleInfo() {
   // This list contains all the data for carousels
   // This can be static or loaded from a server
   // TODO: Load info from json
-  const cards = [
-    {
-      title: 'Design Projects 1',
-      text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
-    },
-    {
-      title: 'Design Projects 2',
-      text: "Different",
-    },
-    {
-      title: 'Design Projects 3',
-      text: "TYO YO YO",
-    },
-  ];
+  const moduleDataArray = modulesInfo.bank_account_basics;
 
   return (
     <Box
@@ -86,7 +74,7 @@ export default function ModuleInfo() {
         />
         {/* Slider */}
         <Slider {...settings} ref={(slider) => setSlider(slider)}>
-          {cards.map((card, index) => (
+          {moduleDataArray.map((moduleData, index) => (
             <Box
               key={index}
               height={'6xl'}
@@ -103,7 +91,7 @@ export default function ModuleInfo() {
                   fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
                   color="var(--midnight)"
                 >
-                  {card.title}
+                  {moduleData.title}
                 </Heading>
                 <Stack
                   spacing={6}
@@ -114,7 +102,7 @@ export default function ModuleInfo() {
                   transform="translate(0, -50%)"
                 >
                   <Text textAlign={'center'} color="var(--midnight)" >
-                    {card.text}
+                    {moduleData.text}
                   </Text>
                 </Stack>
               </Container>
