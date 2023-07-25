@@ -24,6 +24,7 @@ import {
 import "./GoalsTracker.css";
 import apiClient from "../../services/apiClient";
 import { Puff } from "react-loading-icons";
+import GoalTile from "../GoalTile/GoalTile";
 
 export default function GoalsTracker({ setAppState, appState }) {
   const [goalInfo, setGoalInfo] = useState({
@@ -35,12 +36,15 @@ export default function GoalsTracker({ setAppState, appState }) {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [goalForm, setGoalForm] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
+  // const [isChecked, setIsChecked] = useState(false);
+  // const [checked, setChecked] = useState(false)
 
+  console.log();
   console.log(goalInfo);
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-  };
+  // console.log(isChecked)
+  // const handleCheckboxChange = () => {
+  //   setIsChecked(!isChecked);
+  // };
 
   function handleRecord(e) {
     e.preventDefault();
@@ -90,7 +94,7 @@ export default function GoalsTracker({ setAppState, appState }) {
   }
   return (
     <Fragment>
-      <Box marginTop={"5%"} height={"100vh"} color={"white"}>
+      <Box marginTop={"5%"} height={"auto"} color={"white"}>
         <Box
           marginTop={"11%"}
           marginLeft={"16%"}
@@ -111,6 +115,7 @@ export default function GoalsTracker({ setAppState, appState }) {
             src="goalGuy.png"
           />
           <Heading
+            // bg={"red"}
             color={useColorModeValue("var(--grey)", "var(--midnight)")}
             fontSize={"300%"}
             textAlign={"center"}
@@ -334,345 +339,19 @@ export default function GoalsTracker({ setAppState, appState }) {
           ) : (
             <Flex
               flexWrap={"wrap"}
-              justifyContent={"center"}
+              justifyContent={"space-evenly"}
               marginTop={"20px"}
               direction={"row"}
+              // bg={"yellow"}
               spacing={"2%"}
             >
               {appState.goals.map((userGoal) => {
-                console.log("hereee");
-                console.log(userGoal);
-
-                let wordImage = userGoal.category.charAt(0).toUpperCase();
-
-                const createdAtUTC = new Date(userGoal.start_date);
-                const createdAtUTCend = new Date(userGoal.end_date);
-                const createdAtLocal = createdAtUTC.toLocaleString();
-                const createdAtLocalend = createdAtUTCend.toLocaleString();
-                const splitCreatedAtLocal = createdAtLocal.split(" ");
-                const splitCreatedAtLocalend = createdAtLocalend.split(" ");
-
-                const getOrdinalSuffix = (day) => {
-                  if (day >= 11 && day <= 13) {
-                    return "th";
-                  }
-
-                  switch (day % 10) {
-                    case 1:
-                      return "st";
-                    case 2:
-                      return "nd";
-                    case 3:
-                      return "rd";
-                    default:
-                      return "th";
-                  }
-                };
-                const formatDate = (dateString) => {
-                  const date = new Date(dateString);
-                  const month = date.toLocaleString("en-US", {
-                    month: "short",
-                  });
-                  const day = date.getDate();
-                  const year = date.getFullYear();
-                  const suffix = getOrdinalSuffix(day);
-
-                  return `${month} ${day}${suffix} ${year}`;
-                };
-
-                const dayStart = formatDate(splitCreatedAtLocal[0]);
-                const dayEnd = formatDate(splitCreatedAtLocalend[0]);
-                return (
-                  <Fragment>
-                    <Box
-                      marginRight={"20px"}
-                      marginBottom={"15px"}
-                      height={"420px"}
-                      overflow={"scroll"}
-                      border={"solid 5px white"}
-                      borderRadius={"30px"}
-                      width={"30%"}
-                      padding={"15px"}
-                    >
-                      <Box
-                        display="inline-block"
-                        boxShadow={"7px 7px 7px var(--blue)"}
-                        objectFit={"cover"}
-                        bg={"var(--midnight)"}
-                        color={"var(--stark)"}
-                        width={"70px"}
-                        height={"60px"}
-                        borderRadius={"50%"}
-                        paddingTop={"2%"}
-                        paddingLeft={"8%"}
-                        fontSize={"xx-large"}
-                        fontWeight={"bold"}
-                        marginRight={"18%"}
-                      >
-                        {wordImage}
-                      </Box>
-                      <Text
-                        display={"inline-block"}
-                        color={"white"}
-                        width={"130px"}
-                        textAlign={"center"}
-                        padding={"3px"}
-                        backgroundColor={"var(--darkblue)"}
-                        fontSize={"x-large"}
-                        as={"span"}
-                      >
-                        {userGoal.category}
-                      </Text>
-                      <Checkbox
-                        color={"black"}
-                        marginTop={"10px"}
-                        colorScheme="blue"
-                      >
-                        Goal Accomplished?
-                      </Checkbox>
-                      <Text
-                        color={"var(--midnight)"}
-                        fontWeight={"bold"}
-                        textAlign={"center"}
-                        marginTop={"5px"}
-                        padding={"3px"}
-                        fontSize={"x-large"}
-                      >
-                        {userGoal.goal}
-                      </Text>
-                      <HStack marginTop={"5px"} textAlign={"center"}>
-                        <Flex flexDirection={"column"}>
-                          <Text
-                            fontWeight={"bold"}
-                            color={"var(--blue)"}
-                            fontSize={"x-large"}
-                          >
-                            Start Date
-                          </Text>
-                          <Text
-                            color={"var(--midnight)"}
-                            fontWeight={"bold"}
-                            textAlign={"center"}
-                            marginTop={"5px"}
-                            padding={"3px"}
-                            fontSize={"x-large"}
-                          >
-                            {dayStart}
-                          </Text>
-                        </Flex>
-                        <Flex flexDirection={"column"}>
-                          <Text
-                            fontWeight={"bold"}
-                            color={"var(--blue)"}
-                            fontSize={"x-large"}
-                          >
-                            End Date
-                          </Text>
-                          <Text
-                            color={"var(--midnight)"}
-                            fontWeight={"bold"}
-                            textAlign={"center"}
-                            marginTop={"5px"}
-                            padding={"3px"}
-                            fontSize={"x-large"}
-                          >
-                            {dayEnd}
-                          </Text>
-                        </Flex>
-                      </HStack>
-                      <Text fontSize={"x-large"} color={"var(--midnight)"}>
-                        Description:
-                      </Text>
-                      <Text
-                        color={"white"}
-                        height={"100px"}
-                        maxHeight={"150px"}
-                        borderRadius={"20px"}
-                        overflow={"scroll"}
-                        fontWeight={"bold"}
-                        textAlign={"center"}
-                        marginBottom={"15px"}
-                        marginTop={"8px"}
-                        padding={"3px"}
-                        fontSize={"x-large"}
-                        bg={"var(--blue)"}
-                      >
-                        {userGoal.description}
-                      </Text>
-                    </Box>
-                  </Fragment>
-                );
-                // return (
-                //     <h1>{userGoal.goal}</h1>
-                // );
+                return <GoalTile userGoal={userGoal} />;
               })}
             </Flex>
           )}
         </Box>
       </Box>
     </Fragment>
-    // <>
-    //     <>
-    //       <div className="barPage">
-    //         <div className="bars-header">
-    //           <h1>Nutrition</h1>
-    //         </div>
-    //         {nutriForm ? (
-    //           <>
-    //             <div className="bars-form">
-    //               <div className="barsForm-header">
-    //                 <h1> Record Nutrition</h1>
-    //               </div>
-
-    //                <form className="innerForm">
-    //                 <input
-    //                   className="barsForm-input"
-    //                   type="text"
-    //                   name="name"
-    //                   value={nutriInfo.name}
-    //                   onChange={(e) =>
-    //                     setNutriInfo((prevState) => ({
-    //                       ...prevState,
-    //                       name: e.target.value,
-    //                     }))
-    //                   }
-    //                   placeholder="Name"
-    //                 />{" "}
-    //                 <br />
-    //                 <label className="bars-label" htmlFor="category" required>
-    //                   Category
-    //                 </label>
-    //                 <br />
-    //                 <select
-    //                   style={{ width: "102%" }}
-    //                   className="barsForm-input"
-    //                   name="category"
-    //                   value={nutriInfo.category}
-    //                   onChange={(e) =>
-    //                     setNutriInfo((prevState) => ({
-    //                       ...prevState,
-    //                       category: e.target.value,
-    //                     }))
-    //                   }
-    //                   required
-    //                 >
-    //                   <option value="">--Select a Category--</option>
-    //                   <option value="Snack">Snack</option>
-    //                   <option value="Beverage">Beverage</option>
-    //                   <option value="Food">Food</option>
-    //                 </select>
-    //                 <br />
-    //                 <div className="quantCal-input">
-    //                   <div className="div-input">
-    //                     <label
-    //                       className="bars-label"
-    //                       htmlFor="quantity"
-    //                       required
-    //                     >
-    //                       Quantity
-    //                     </label>
-    //                     <br />
-    //                     <input
-    //                       value={nutriInfo.quantity}
-    //                       onChange={(e) =>
-    //                         setNutriInfo((prevState) => ({
-    //                           ...prevState,
-    //                           quantity: e.target.value,
-    //                         }))
-    //                       }
-    //                       id="quantity-input"
-    //                       type="number"
-    //                       name="quantity"
-    //                       min="1"
-    //                       max="100"
-    //                       required
-    //                     />
-    //                   </div>
-    //                   <div className="div-input2">
-    //                     <label
-    //                       className="bars-label"
-    //                       htmlFor="calories"
-    //                       required
-    //                     >
-    //                       Calories
-    //                     </label>
-    //                     <br />
-    //                     <input
-    //                       value={nutriInfo.calories}
-    //                       onChange={(e) =>
-    //                         setNutriInfo((prevState) => ({
-    //                           ...prevState,
-    //                           calories: e.target.value,
-    //                         }))
-    //                       }
-    //                       id="calories-input"
-    //                       type="number"
-    //                       name="calories"
-    //                       min="0"
-    //                       max="15000"
-    //                       step="10"
-    //                       required
-    //                     />
-    //                   </div>
-    //                 </div>
-    //                 <br />
-    //                 <input
-    //                   value={nutriInfo.image_url}
-    //                   onChange={(e) =>
-    //                     setNutriInfo((prevState) => ({
-    //                       ...prevState,
-    //                       image_url: e.target.value,
-    //                     }))
-    //                   }
-    //                   className="barsForm-input"
-    //                   type="url"
-    //                   name="url"
-    //                   placeholder="url for image"
-    //                   pattern="https://.*"
-    //                   required
-    //                 />
-    //                 <button onClick={handleSumbit} className="bars-cancel">
-    //                   Save
-    //                 </button>
-    //                 <button className="bars-cancel" onClick={handleRecord}>
-    //                   Cancel
-    //                 </button>
-    //               </form>
-    //             </div>
-    //           </>
-    //         ) : (
-    //           <>
-    //             <div className="bar-content">
-    //               {appState.nutrition.length === 0 ? (
-    //                 <Fragment>
-    //                   <p className="bar-contentp">Nothing here yet.</p>
-    //                   <button onClick={handleRecord} className="bar-button">
-    //                     Record Nutrition
-    //                   </button>{" "}
-    //                   <br />
-    //                   <img src={emptycan} alt="empty can in a fridge" />
-    //                 </Fragment>
-    //               ) : (
-    //                 <Fragment>
-    //                   <button
-    //                     style={{ marginTop: "2%" }}
-    //                     onClick={handleRecord}
-    //                     className="bar-button"
-    //                   >
-    //                     Add Nutrition
-    //                   </button>
-    //                   <div id="exercise-whole">
-    //                     {appState.nutrition.map((nutrition) => {
-    //                       return <Tile nutrition={nutrition} />;
-    //                     })}
-    //                   </div>
-    //                 </Fragment>
-    //               )}
-    //             </div>
-    //           </>
-    //         )}
-    //       </div>
-    //     </>
-    // </>
   );
 }
