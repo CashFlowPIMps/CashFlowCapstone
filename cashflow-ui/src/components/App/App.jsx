@@ -9,6 +9,8 @@ import Register from '../Register/Register'
 import Home from '../Home/Home';
 import ModuleInfo from '../ModuleInfo/ModuleInfo';
 import Dashboard from '../Dashboard/Dashboard';
+import RegisterQuiz from '../RegisterQuiz/RegisterQuiz';
+
 
 function App() {
   const [appState, setAppState] = useState({
@@ -69,10 +71,14 @@ function App() {
           <Route path="/login" element={<Login setAppState={setAppState}/>} />
           <Route path="/profile" element={<></>} />
           <Route path="/goals" element={<></>} />
+
           {module_pages.map((page) =>(
        <Route path={`/${page}`} element={<ModuleInfo module_name={page} /> } />
     ))}
-          
+
+          <Route path="/dashboard" element={<></>} />
+          <Route path="/registerquiz" element={<RegisterQuiz />} />
+
       </Routes>
       </BrowserRouter>
     </div>
