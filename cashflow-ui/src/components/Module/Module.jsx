@@ -9,14 +9,16 @@ import {
   Image,
   Text
 } from '@chakra-ui/react';
+import { Navigate } from 'react-router';
 export default function Module({module}) {
     // TODO: counter for module info pages 
     const page_count = 0
     const handleBegin= () => {
-        console.log("navigate back to module");
+        console.log("navigate to module quiz");
+        Navigate
       }
     const handleBack= () => {
-        console.log("navigate to module quiz");
+        console.log("navigate to module info");
       }
 
     return (
