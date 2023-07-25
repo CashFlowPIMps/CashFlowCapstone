@@ -20,6 +20,8 @@ function App() {
   const bgColor = useColorModeValue('var(--grey)', 'var(--midnight)');
   const [isLoading, setIsLoading] = useState(false);
 
+  console.log(appState)
+
   useEffect(() => {
     setIsLoading(true);
     const token = localStorage.getItem("CashFlow_Token");
@@ -65,7 +67,7 @@ function App() {
           <Route path="/register" element={<Register setAppState={setAppState}/>} />
           <Route path="/login" element={<Login setAppState={setAppState}/>} />
           <Route path="/profile" element={<></>} />
-          <Route path="/goals" element={<GoalsTracker appState={appState}/>} />
+          <Route path="/goals" element={<GoalsTracker setAppState={setAppState} appState={appState}/>} />
           <Route path="/dashboard" element={<></>} />
       </Routes>
       </BrowserRouter>
