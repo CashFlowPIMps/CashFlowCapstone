@@ -18,7 +18,7 @@ const settings = {
   dots: false,
   arrows: false,
   fade: true,
-  infinite: true,
+  infinite: false,
   autoplay: false,
   speed: 500,
   slidesToShow: 1,
@@ -44,7 +44,7 @@ export default function ModuleInfo({module_name}) {
     >
       <Box>
       <Image src='marcus.png' position={'absolute'} top={'25px'} ml={'200px'} zIndex={'1'} />
-      <Box position={'relative'} height={'600px'} width={'100vh'} overflow={'scroll'} borderRadius={'3xl'} backgroundColor={'var(--lightblue)'}>
+      <Box position={'relative'} height={'800px'} width={'1500px'} overflow={'scroll'} borderRadius={'3xl'} backgroundColor={'var(--lightblue)'}>
         {/* Left Icon */}
         <IconButton
           aria-label="left-arrow"
@@ -97,12 +97,15 @@ export default function ModuleInfo({module_name}) {
                 transform="translate(0, -50%)"
                 
               >
-                {/* Displays information stored in json file  */}
+                <Box w={'1000px'} display={'contents'}>
+                  {/* Displays information stored in json file  */}
                 {moduleData.content.map((line, idx) => (
                       <Text key={idx} fontWeight={'bold'} color={'var(--midnight)'} >
                      {line}
                     </Text>
                  ))}
+                </Box>
+                
                 
               </Stack>
             </Container>
@@ -111,7 +114,7 @@ export default function ModuleInfo({module_name}) {
       </Slider>
       </Box>
       </Box>
-      <Cashbot />
+      {/* <Cashbot /> */}
     </Box>
 
     </>

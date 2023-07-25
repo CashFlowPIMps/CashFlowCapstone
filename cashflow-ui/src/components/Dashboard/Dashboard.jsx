@@ -12,9 +12,11 @@ export default function Dashboard() {
   return (
     <Box display={'flex'} justifyContent={'center'} height={'100vh'}>
     {beginnerimg.map((img) =>(
+      <Box>
         <Link to={`/${img}`} >
         <Image boxSize={300} key={img} src={`${img}.png`}></Image>
         </Link>
+        </Box>
     ))}
     </Box>
   )
