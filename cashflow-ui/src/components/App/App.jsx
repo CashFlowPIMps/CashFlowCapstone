@@ -9,6 +9,7 @@ import Register from '../Register/Register'
 import Home from '../Home/Home';
 import ModuleInfo from '../ModuleInfo/ModuleInfo';
 import Dashboard from '../Dashboard/Dashboard';
+import Module from '../Module/Module';
 
 function App() {
   const [appState, setAppState] = useState({
@@ -69,6 +70,7 @@ function App() {
           <Route path="/login" element={<Login setAppState={setAppState}/>} />
           <Route path="/profile" element={<></>} />
           <Route path="/goals" element={<></>} />
+          <Route path="/module" element={ <Module /> } />
           {module_pages.map((page) =>(
        <Route path={`/${page}`} element={<ModuleInfo module_name={page} /> } />
     ))}
