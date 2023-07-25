@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Register from '../Register/Register'
 import Home from '../Home/Home';
 import ModuleInfo from '../ModuleInfo/ModuleInfo';
+import Dashboard from '../Dashboard/Dashboard';
 
 function App() {
   const [appState, setAppState] = useState({
@@ -19,6 +20,8 @@ function App() {
   // Sets background color based on dark/light mode
   const bgColor = useColorModeValue('var(--grey)', 'var(--midnight)');
   const [isLoading, setIsLoading] = useState(false);
+
+  const module_pages = ['bank-acct', 'credit-cards', 'debt', 'hysavings','cdsavings','roth','401k']
 
   useEffect(() => {
     setIsLoading(true);
@@ -60,13 +63,16 @@ function App() {
     <BrowserRouter>
     <Navbar setAppState={setAppState} appState={appState}/>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={ appState.isAuthenticated ? <Dashboard /> : <Home />} />
           <Route path="/about" element={<AboutGrid />} />
           <Route path="/register" element={<Register setAppState={setAppState}/>} />
           <Route path="/login" element={<Login setAppState={setAppState}/>} />
           <Route path="/profile" element={<></>} />
           <Route path="/goals" element={<></>} />
-          <Route path="/dashboard" element={<ModuleInfo />} />
+          {module_pages.map((page) =>(
+       <Route path={`/${page}`} element={<ModuleInfo module_name={page} /> } />
+    ))}
+          
       </Routes>
       </BrowserRouter>
     </div>

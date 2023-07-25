@@ -5,16 +5,13 @@ import {
   useBreakpointValue,
   Stack,
   Heading,
-  Text,
   Container,
   Image,
-  List,
-  UnorderedList,
-  ListItem
+  Text
 } from '@chakra-ui/react';
 import Slider from 'react-slick';
 import modulesInfo from '../../../../cashflow-api/modules/modulesInfo.json';
-
+import Cashbot from '../Cashbot/Cashbot'
 
 // Settings for the slider
 const settings = {
@@ -28,19 +25,13 @@ const settings = {
   slidesToScroll: 1,
 };
 
-export default function ModuleInfo() {
-  // As we have used custom buttons, we need a reference variable to
-  // change the state
+// TODO: pass in specific module here 
+export default function ModuleInfo({module_name}) {
   const [slider, setSlider] = useState(null);
-  // These are the breakpoints which change the position of the
-  // buttons as the screen size changes
   const top = useBreakpointValue({ base: '90%', md: '50%' });
   const side = useBreakpointValue({ base: '30%', md: '40px' });
-
-  // This list contains all the data for carousels
-  // This can be static or loaded from a server
-  // TODO: Load info from json
-  const moduleDataArray = modulesInfo.bank_account_basics;
+  // Loads info from specified module
+  const moduleDataArray = modulesInfo[`${module_name}`];
 
   return (
     <>
@@ -51,9 +42,9 @@ export default function ModuleInfo() {
       alignItems="center"
       height="100vh" 
     >
-      
-      <Image src='marcus.png' position={'absolute'} top={'25px'} ml={'30px'} zIndex={'1'} />
-      <Box position={'relative'} height={'600px'} width={'800px'} overflow={'scroll'} borderRadius={'3xl'} backgroundColor={'var(--lightblue)'}>
+      <Box>
+      <Image src='marcus.png' position={'absolute'} top={'25px'} ml={'200px'} zIndex={'1'} />
+      <Box position={'relative'} height={'600px'} width={'100vh'} overflow={'scroll'} borderRadius={'3xl'} backgroundColor={'var(--lightblue)'}>
         {/* Left Icon */}
         <IconButton
           aria-label="left-arrow"
@@ -102,31 +93,27 @@ export default function ModuleInfo() {
                 spacing={6}
                 w={'full'}
                 maxW={'lg'}
-                position="absolute"
                 top="50%"
                 transform="translate(0, -50%)"
+                
               >
-                <List
-                  color="var(--midnight)"
-                  fontWeight={'bold'}
-                  mt={'50px'}
-                  position={'relative'}
-                  pl={0}
-                  styleType="none"
-                >
-                  {moduleData.content.map((line, idx) => (
-                    <ListItem key={idx} ml={0} pl={4}>
-                      {line}
-                    </ListItem>
-                  ))}
-                </List>
+                {/* Displays information stored in json file  */}
+                {moduleData.content.map((line, idx) => (
+                      <Text key={idx} fontWeight={'bold'} color={'var(--midnight)'} >
+                     {line}
+                    </Text>
+                 ))}
+                
               </Stack>
             </Container>
           </Box>
         ))}
       </Slider>
       </Box>
+      </Box>
+      <Cashbot />
     </Box>
+
     </>
   );
 }
