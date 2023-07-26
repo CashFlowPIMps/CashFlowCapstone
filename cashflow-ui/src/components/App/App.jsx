@@ -27,6 +27,7 @@ function App() {
 
   const module_pages = ['bank-acct', 'credit-cards', 'debt', 'hysavings','cdsavings','roth','401k']
 
+  console.log(appState)
   useEffect(() => {
     setIsLoading(true);
     const token = localStorage.getItem("CashFlow_Token");
@@ -80,7 +81,7 @@ function App() {
     ))}
 
           <Route path="/dashboard" element={<></>} />
-          <Route path="/registerquiz" element={<RegisterQuiz />} />
+          <Route path="/registerquiz" element={<RegisterQuiz setAppState={setAppState} appState={appState}/>} />
 
       </Routes>
       </BrowserRouter>
