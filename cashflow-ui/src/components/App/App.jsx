@@ -12,6 +12,7 @@ import ModuleInfo from '../ModuleInfo/ModuleInfo';
 import Dashboard from '../Dashboard/Dashboard';
 import RegisterQuiz from '../RegisterQuiz/RegisterQuiz';
 
+
 import Module from '../Module/Module';
 import GoodJob from '../Success/GoodJob';
 import NotQuite from '../Fail/NotQuite';
