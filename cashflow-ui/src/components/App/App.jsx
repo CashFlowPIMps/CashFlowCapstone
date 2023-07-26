@@ -28,7 +28,6 @@ function App() {
   const bgColor = useColorModeValue('var(--grey)', 'var(--midnight)');
   const [isLoading, setIsLoading] = useState(false);
 
-  const module_pages = ['bank_account_basics', 'credit-cards', 'debt', 'hysavings','cdsavings','roth','401k']
 
   const module_pages = ['bank_account_basics', 'credit-cards', 'debt', 'hysavings','cdsavings','roth','401k']
 
