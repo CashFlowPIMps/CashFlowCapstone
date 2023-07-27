@@ -31,22 +31,17 @@ const settings = {
 
 // TODO: pass in specific module here 
 export default function ModuleQuiz({module_name}) {
-const quiz_data = moduleQuiz[`${module_name}`]
   const [slider, setSlider] = useState(null);
   const top = useBreakpointValue({ base: '90%', md: '50%' });
   const side = useBreakpointValue({ base: '30%', md: '40px' });
 
 
-  function Quiz({module_name}) {
-    console.log(quiz_data)
+  function Quiz({ module_name }) {
+    const quiz_data = moduleQuiz[module_name]; // Retrieve quiz_data for the specific module
     return (
       <Stack spacing={6}>
-        {Object.entries(moduleQuiz).map(([module_name, data]) => (
-          <Stack key={module_name} spacing={6}>
-            {data.questions.map((question, index) => (
-              <Question key={index} question={question} />
-            ))}
-          </Stack>
+        {quiz_data.questions?.map((question, index) => (
+          <Question key={index} question={question} />
         ))}
       </Stack>
     );
@@ -56,24 +51,22 @@ const quiz_data = moduleQuiz[`${module_name}`]
     const { scenario, options } = question;
   
     return (
-        <Box>
-            <FormControl as="fieldset" color={'black'}>
-        <FormLabel as="legend">{scenario}</FormLabel>
-        <RadioGroup>
-          <Stack spacing={3}>
-            {options.map((option, index) => (
-              <Radio key={index}>
-                {option}
-              </Radio>
-            ))}
-          </Stack>
-        </RadioGroup>
-      </FormControl>
-        </Box>
+      <Box>
+        <FormControl as="fieldset" color={'black'}>
+          <FormLabel as="legend">{scenario}</FormLabel>
+          <RadioGroup>
+            <Stack spacing={3}>
+              {options.map((option, index) => (
+                <Radio key={index}>
+                  {option}
+                </Radio>
+              ))}
+            </Stack>
+          </RadioGroup>
+        </FormControl>
+      </Box>
     );
   }
-  
-  
   
   return (
     <>
