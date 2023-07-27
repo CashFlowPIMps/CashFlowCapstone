@@ -5,18 +5,19 @@ import Navbar from "../Navbar/Navbar";
 import { useState, useEffect } from "react";
 import apiClient from "../../services/apiClient";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Register from "../Register/Register";
-import GoalsTracker from "../GoalsTracker/GoalsTracker";
-import Home from "../Home/Home";
-import ModuleInfo from "../Module/ModuleInfo";
-import Dashboard from "../Dashboard/Dashboard";
-import RegisterQuiz from "../RegisterQuiz/RegisterQuiz";
-import Module from "../Module/Module";
-import GoodJob from "../Success/GoodJob";
-import NotQuite from "../Fail/NotQuite";
-import Failure from "../Fail/Failure";
-import ModuleQuiz from "../Module/ModuleQuiz";
-import QuizPreview from "../Module/QuizPreview";
+import Register from '../Register/Register'
+import GoalsTracker from '../GoalsTracker/GoalsTracker'
+import Home from '../Home/Home';
+import ModuleInfo from '../Module/ModuleInfo';
+import Dashboard from '../Dashboard/Dashboard';
+import RegisterQuiz from '../RegisterQuiz/RegisterQuiz';
+import Module from '../Module/Module';
+import GoodJob from '../Success/GoodJob';
+import NotQuite from '../Fail/NotQuite';
+import Failure from '../Fail/Failure';
+import ModuleQuiz from '../Module/ModuleQuiz';
+import QuizPreview from '../Module/QuizPreview';
+import ProfileView from '../ProfileView/ProfileView';
 
 function App() {
   const [appState, setAppState] = useState({
@@ -155,6 +156,8 @@ function App() {
       </BrowserRouter>
     </div>
   );
+
 }
+
 
 export default App;
