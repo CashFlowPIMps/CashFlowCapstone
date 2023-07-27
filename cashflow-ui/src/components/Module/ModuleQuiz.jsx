@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useRef} from 'react';
 import {
   Box,
   IconButton,
@@ -29,44 +29,62 @@ const settings = {
   slidesToScroll: 1,
 };
 
+function Quiz({ module_name, slider }) {
+  const quiz_data = moduleQuiz[module_name] || {};
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNext = (isAnswerCorrect) => {
+    setCurrentIndex((prevIndex) => prevIndex + 1);
+    if (isAnswerCorrect) {
+      slider?.slick?.slickNext(); // Move to the next slide if the answer is correct
+    }
+  };
+
+  return (
+    <Slider {...slider}>
+      {quiz_data.questions?.map((question, index) => (
+        <div key={index}>
+          {currentIndex === index ? (
+            <Question question={question} onNext={handleNext} />
+          ) : (
+            <ResultPage
+              isCorrect={false} // Show a placeholder result page if not currently on the question slide
+              onNext={() => setCurrentIndex((prevIndex) => prevIndex + 1)}
+            />
+          )}
+        </div>
+      ))}
+    </Slider>
+  );
+}
+
+
+function Question({ question }) {
+  const { scenario, options } = question;
+
+  return (
+    <Box>
+      <FormControl as="fieldset" color={'black'}>
+        <FormLabel as="legend">{scenario}</FormLabel>
+        <RadioGroup>
+          <Stack spacing={3}>
+            {options.map((option, index) => (
+              <Radio key={index}>
+                {option}
+              </Radio>
+            ))}
+          </Stack>
+        </RadioGroup>
+      </FormControl>
+    </Box>
+  );
+}
+
 // TODO: pass in specific module here 
 export default function ModuleQuiz({module_name}) {
-  const [slider, setSlider] = useState(null);
+  const [slider, setSlider] = useState(settings);
   const top = useBreakpointValue({ base: '90%', md: '50%' });
   const side = useBreakpointValue({ base: '30%', md: '40px' });
-
-
-  function Quiz({ module_name }) {
-    const quiz_data = moduleQuiz[module_name]; // Retrieve quiz_data for the specific module
-    return (
-      <Stack spacing={6}>
-        {quiz_data.questions?.map((question, index) => (
-          <Question key={index} question={question} />
-        ))}
-      </Stack>
-    );
-  }
-  
-  function Question({ question }) {
-    const { scenario, options } = question;
-  
-    return (
-      <Box>
-        <FormControl as="fieldset" color={'black'}>
-          <FormLabel as="legend">{scenario}</FormLabel>
-          <RadioGroup>
-            <Stack spacing={3}>
-              {options.map((option, index) => (
-                <Radio key={index}>
-                  {option}
-                </Radio>
-              ))}
-            </Stack>
-          </RadioGroup>
-        </FormControl>
-      </Box>
-    );
-  }
   
   return (
     <>
@@ -89,7 +107,7 @@ export default function ModuleQuiz({module_name}) {
           transform={'translate(0%, -50%)'}
           zIndex={2}
           icon={<Image src="/back.png" maxH={'120px'} />}
-          onClick={() => slider?.slickNext()}
+          onClick={() => slider?.slick?.slickPrev()}
         />
         {/* Right Icon */}
         <IconButton
@@ -101,12 +119,10 @@ export default function ModuleQuiz({module_name}) {
           transform={'translate(0%, -50%)'}
           zIndex={2}
           icon={<Image src="/next.png" maxH={'120px'} />}
-          onClick={() => slider?.slickPrev()}
+          onClick={() => slider?.slick?.slickNext()}
         />
-        {/* Slider */}
         
-        <Quiz module_name={module_name}/>
-
+        <Quiz module_name={module_name} slider={slider}/>
 
         
       </Box>
