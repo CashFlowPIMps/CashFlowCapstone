@@ -9,12 +9,15 @@ import Register from '../Register/Register'
 import GoalsTracker from '../GoalsTracker/GoalsTracker'
 import Home from '../Home/Home';
 import ModuleInfo from '../Module/ModuleInfo';
+import ModuleInfo from '../Module/ModuleInfo';
 import Dashboard from '../Dashboard/Dashboard';
 import RegisterQuiz from '../RegisterQuiz/RegisterQuiz';
 import Module from '../Module/Module';
 import GoodJob from '../Success/GoodJob';
 import NotQuite from '../Fail/NotQuite';
 import Failure from '../Fail/Failure';
+import QuizPreview from '../Module/QuizPreview';
+import ModuleQuiz from '../Module/ModuleQuiz';
 import QuizPreview from '../Module/QuizPreview';
 import ModuleQuiz from '../Module/ModuleQuiz';
 
@@ -73,14 +76,15 @@ function App() {
     <BrowserRouter>
     <Navbar setAppState={setAppState} appState={appState}/>
         <Routes>
-          <Route path="/" element={ appState.isAuthenticated ? <Dashboard /> : <Home />} />
-          <Route path="/" element={ appState.isAuthenticated ? <Dashboard /> : <Home />} />
+          <Route path="/" element={ appState.isAuthenticated ? <Dashboard appState={appState}/> : <Home />} />
           <Route path="/about" element={<AboutGrid />} />
           <Route path="/register" element={<Register setAppState={setAppState}/>} />
           <Route path="/login" element={<Login setAppState={setAppState}/>} />
           <Route path="/profile" element={ <Failure /> } />
           <Route path="/goals" element={<GoalsTracker setAppState={setAppState} appState={appState}/>} />
           <Route path="/registerquiz" element={<RegisterQuiz setAppState={setAppState} appState={appState}/>} />
+          {module_pages.map((module_name) =>(
+       <Route path={`/${module_name}`} element={<Module setInfoPage={setInfoPage} infoPage={infoPage} module_name={module_name} /> } />
           {module_pages.map((module_name) =>(
        <Route path={`/${module_name}`} element={<Module setInfoPage={setInfoPage} infoPage={infoPage} module_name={module_name} /> } />
     ))}
