@@ -31,10 +31,7 @@ export default function RegisterQuiz({ setAppState, appState }) {
     levelOfDebt: "",
     finanGoal: "",
   });
-  // const [imageUrl, setImageUrl] = useState("");
-  // const [scale, setScale] = useState(0);
-  // const [levelOfDebt, setLevelOfDebt] = useState("");
-  // const [finanGoal, setFinanGoal] = useState("");
+
   const navigateTo = useNavigate();
 
   const formChange = (event) => {
@@ -137,7 +134,6 @@ export default function RegisterQuiz({ setAppState, appState }) {
             quizInfo.finanGoal
           ),
         });
-        console.log(data);
         if (error) {
           return;
         }
@@ -165,8 +161,9 @@ export default function RegisterQuiz({ setAppState, appState }) {
           <Heading
             as="h3"
             size="lg"
-            marginLeft={"42%"}
-            marginTop={""}
+            marginLeft={"44vw"}
+            // marginTop={""}
+            // mx={"auto"}
             position={"relative"}
             top={"70px"}
             color={useColorModeValue("var(--midnight)", "var(--grey)")}
@@ -176,7 +173,7 @@ export default function RegisterQuiz({ setAppState, appState }) {
         </Stack>
         <Box
           maxWidth={"720px"}
-          minHeight={"100vh"}
+          minHeight={"80vh"}
           maxHeight={"auto"}
           color={"white"}
           margin={"0 auto"}
