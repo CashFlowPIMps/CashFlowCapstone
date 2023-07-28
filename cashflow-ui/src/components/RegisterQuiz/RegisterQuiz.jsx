@@ -27,7 +27,7 @@ import apiClient from "../../services/apiClient";
 export default function RegisterQuiz({ setAppState, appState }) {
   const [quizInfo, setQuizInfo] = useState({
     imageUrl: "",
-    scale: 0,
+    scale: 1,
     levelOfDebt: "",
     finanGoal: "",
   });
@@ -123,7 +123,12 @@ export default function RegisterQuiz({ setAppState, appState }) {
 
   const handleStartLearning = async (e) => {
     e.preventDefault();
-    if (quizInfo.scale && quizInfo.levelOfDebt && quizInfo.finanGoal) {
+    if (
+      quizInfo.scale <= 10 &&
+      quizInfo.scale >= 1 &&
+      quizInfo.levelOfDebt &&
+      quizInfo.finanGoal
+    ) {
       try {
         const { data, error, message } = await apiClient.imageStats({
           id: appState.user.id,
@@ -138,14 +143,12 @@ export default function RegisterQuiz({ setAppState, appState }) {
           return;
         }
         if (data) {
-          setAppState((prevState) => ({
-            ...prevState.user,
-            user: {
-              ...prevState.user,
-              image_url: data.image_url,
-              status: data.status,
-            },
-          }));
+          const updatedUser = { ...appState.user };
+
+          updatedUser.image_url = data.image_url;
+          updatedUser.status = data.status;
+
+          setAppState({ ...appState, user: updatedUser })
         }
       } catch (err) {
         console.log(err);

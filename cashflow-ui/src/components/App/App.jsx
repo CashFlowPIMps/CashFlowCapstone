@@ -53,7 +53,7 @@ function App() {
       setCashBotLink("cashbotDark.png");
     }
   }, [bgColor]);
-
+console.log(appState)
   useEffect(() => {
     setIsLoading(true);
     const token = localStorage.getItem("CashFlow_Token");
