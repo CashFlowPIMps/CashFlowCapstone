@@ -450,10 +450,13 @@ export default function RegisterQuiz({ setAppState, appState }) {
                 src={quizInfo.imageUrl}
                 alt="Uploaded preview"
                 mt={4}
+                filter={"drop-shadow(8px 5px 4px var(--blue))"}
+                borderRadius={"50%"}
                 backgroundColor={"white"}
-                marginLeft={"50px"}
-                maxWidth={"100px"}
-                maxHeight={"100px"}
+                mx={"auto"}
+                width={"100px"}
+                height={"100px"}
+                objectFit={"cover"}
                 position={"relative"}
                 top={"60px"}
               />

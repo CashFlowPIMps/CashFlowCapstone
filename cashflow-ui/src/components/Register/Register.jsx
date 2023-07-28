@@ -77,7 +77,6 @@ export default function Register({ appState, setAppState }) {
           localStorage.setItem("CashFlow_Token", data.token);
           apiClient.setToken(data.token);
           navigateTo("/registerquiz");
-
         } else {
           setRegisterError("Something went wrong with registration.");
         }
@@ -101,7 +100,12 @@ export default function Register({ appState, setAppState }) {
 
   return (
     <Fragment>
-      <Box marginTop={"5%"} height={"100vh"} color={"white"}>
+      <Box
+        marginBottom={"5%"}
+        marginTop={"5%"}
+        height={"100vh"}
+        color={"white"}
+      >
         <Heading
           textAlign={"center"}
           width={"50%"}
@@ -139,7 +143,6 @@ export default function Register({ appState, setAppState }) {
               boxShadow={"lg"}
               p={8}
               mx={"auto"}
-              
             >
               <Stack align={"center"}>
                 <Heading
@@ -307,7 +310,9 @@ export default function Register({ appState, setAppState }) {
                         fontSize={"x-large"}
                         variant={"ghost"}
                         onClick={() =>
-                          setShowConfirmPassword((showConfirmPassword) => !showConfirmPassword)
+                          setShowConfirmPassword(
+                            (showConfirmPassword) => !showConfirmPassword
+                          )
                         }
                       >
                         {showConfirmPassword ? <ViewIcon /> : <ViewOffIcon />}
@@ -320,7 +325,7 @@ export default function Register({ appState, setAppState }) {
                   emailPattern.test(userInfo.email) ? null : (
                     <span
                       style={{
-                        color: "red"
+                        color: "red",
                       }}
                     >
                       Invalid email input.
@@ -330,7 +335,7 @@ export default function Register({ appState, setAppState }) {
                     <>
                       <span
                         style={{
-                          color: "red"
+                          color: "red",
                         }}
                       >
                         Passwords do not match.
@@ -383,7 +388,10 @@ export default function Register({ appState, setAppState }) {
                 fontSize={"x-large"}
               >
                 Have an account?
-                <Link href="/login" style={{ textDecoration:"none", color: "var(--blue)" }}>
+                <Link
+                  href="/login"
+                  style={{ textDecoration: "none", color: "var(--blue)" }}
+                >
                   <em> Sign In</em>
                 </Link>
               </Text>
