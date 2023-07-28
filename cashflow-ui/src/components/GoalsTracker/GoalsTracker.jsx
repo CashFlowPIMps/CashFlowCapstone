@@ -21,7 +21,6 @@ import {
   useColorModeValue,
   Link,
 } from "@chakra-ui/react";
-import "./GoalsTracker.css";
 import apiClient from "../../services/apiClient";
 import { Puff } from "react-loading-icons";
 import GoalTile from "../GoalTile/GoalTile";
