@@ -68,25 +68,103 @@ function App() {
     });
   }, [appState.isAuthenticated]);
 
+  console.log(appState)
+
   return (
     <div className="app" style={{ backgroundColor: bgColor }}>
     <BrowserRouter>
     <Navbar setAppState={setAppState} appState={appState}/>
         <Routes>
-          <Route path="/" element={ appState.isAuthenticated ? <Dashboard appState={appState}/> : <Home />} />
-          <Route path="/about" element={<AboutGrid />} />
-          <Route path="/register" element={<Register setAppState={setAppState}/>} />
-          <Route path="/login" element={<Login setAppState={setAppState}/>} />
-          <Route path="/profile" element={ <Failure /> } />
-          <Route path="/goals" element={<GoalsTracker setAppState={setAppState} appState={appState}/>} />
-          <Route path="/registerquiz" element={<RegisterQuiz setAppState={setAppState} appState={appState}/>} />
-          {module_pages.map((module_name) =>(
-       <Route path={`/${module_name}`} element={<Module setInfoPage={setInfoPage} infoPage={infoPage} module_name={module_name} /> } />
-    ))}
-          {module_pages.map((module_name) =>(
-       <Route path={`/${module_name}/quiz`} element={ <ModuleQuiz setInfoPage={setInfoPage} infoPage={infoPage} module_name={module_name}/> } />
-       ))}
-      </Routes>
+          <Route
+            path="/"
+            element={
+              appState.isAuthenticated ? (
+                <Dashboard appState={appState} />
+              ) : (
+                <Home />
+              )
+            }
+          />
+          <Route
+            path="/about"
+            element={ <AboutGrid />}
+          />
+          <Route
+            path="/register"
+            element={
+              appState.isAuthenticated ? null : (
+                <Register setAppState={setAppState} />
+              )
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              appState.isAuthenticated ? null : (
+                <Login setAppState={setAppState} />
+              )
+            }
+          />
+          {/* <Route
+            path="/profile"
+            element={
+              appState.isAuthenticated ? (
+                <ProfileView appState={appState} />
+              ) : null
+            }
+          /> */}
+          {/* <Route
+            path="/goals"
+            element={
+              appState.isAuthenticated ? (
+                <GoalsTracker
+                  cashBotLink={cashBotLink}
+                  setAppState={setAppState}
+                  appState={appState}
+                />
+              ) : null
+            }
+          /> */}
+          <Route
+            path="/registerquiz"
+            element={
+              appState.isAuthenticated ? (
+                <RegisterQuiz setAppState={setAppState} appState={appState} />
+              ) : null
+            }
+          />
+          {module_pages.map((module_name) => (
+            <Route
+              path={`/${module_name}`}
+              element={
+                appState.isAuthenticated ? (
+                  <Module
+                    //cashBotLink={cashBotLink}
+                    setInfoPage={setInfoPage}
+                    infoPage={infoPage}
+                    module_name={module_name}
+                  />
+                ) : null
+              }
+            />
+          ))}
+          {module_pages.map((module_name) => (
+            <Route
+              path={`/${module_name}/quiz`}
+              element={
+                appState.isAuthenticated ? (
+                  <ModuleQuiz
+                    setInfoPage={setInfoPage}
+                    infoPage={infoPage}
+                    module_name={module_name}
+                    appState={appState}
+                    setAppState={setAppState}
+                  />
+                ) : null
+              }
+            />
+          ))}
+        </Routes>
       </BrowserRouter>
     </div>
   );

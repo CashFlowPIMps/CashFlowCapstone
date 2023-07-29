@@ -22,11 +22,9 @@ export default function Navbar({ setAppState, appState }) {
   const { colorMode, toggleColorMode } = useColorMode();
   const navLinks = ["About", "Register", "Login"];
   const handleLogout = () => {
-    console.log(appState);
     localStorage.setItem("CashFlow_Token", null);
     setAppState((appState) => ({ ...appState, isAuthenticated: false }));
   };
-  console.log(appState.user)
 
   const NavLink = ({ children }) => {
     const handleClick = () => {

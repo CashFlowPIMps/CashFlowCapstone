@@ -11,11 +11,12 @@ import {
   FormLabel,
   RadioGroup,
   Radio,
-  Text
+  Button
 } from '@chakra-ui/react';
 import Slider from 'react-slick';
 import moduleQuiz from '../../../../cashflow-api/modules/modulequiz.json';
-
+import apiClient from "../../services/apiClient";
+import NotQuite from '../Fail/NotQuite';
 
 // Settings for the slider
 const settings = {
@@ -29,15 +30,22 @@ const settings = {
   slidesToScroll: 1,
 };
 
-function Quiz({ module_name, slider }) {
+function Quiz({ module_name, slider, setAppState, onQuizFinish }) {
   const quiz_data = moduleQuiz[module_name] || {};
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [score, setScore] = useState(0);
+  const [isFinished, setIsFinished] = useState(false);
 
   const handleNext = (isAnswerCorrect) => {
-    setCurrentIndex((prevIndex) => prevIndex + 1);
     if (isAnswerCorrect) {
-      slider?.slick?.slickNext(); // Move to the next slide if the answer is correct
+      setScore((prevScore) => prevScore + 1);
     }
+    setCurrentIndex((prevIndex) => prevIndex + 1);
+  };
+
+  const handleQuizFinish = () => {
+    setIsFinished(true);
+    onQuizFinish(score); // Call the onQuizFinish function passed from the parent component with the final score
   };
 
   return (
@@ -45,12 +53,21 @@ function Quiz({ module_name, slider }) {
       {quiz_data.questions?.map((question, index) => (
         <div key={index}>
           {currentIndex === index ? (
-            <Question question={question} onNext={handleNext} />
+            <>
+              <Question question={question} onNext={handleNext} />
+              {currentIndex === quiz_data.questions.length - 1 && isFinished ? (
+                score >= quiz_data.questions.length / 2 ? (
+                  <Success />
+                ) : (
+                  <Fail />
+                )
+              ) : null}
+            </>
           ) : (
-            <ResultPage
-              isCorrect={false} // Show a placeholder result page if not currently on the question slide
-              onNext={() => setCurrentIndex((prevIndex) => prevIndex + 1)}
-            />
+            <>
+              {index < score ? <GoodJob /> : <NotQuite />}
+              <Question question={question} onNext={handleNext} />
+            </>
           )}
         </div>
       ))}
@@ -59,29 +76,92 @@ function Quiz({ module_name, slider }) {
 }
 
 
-function Question({ question }) {
-  const { scenario, options } = question;
+
+function Question({ question, onNext }) {
+  const { scenario, options, answer } = question;
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  // Handle user's answer selection
+  const handleAnswerSelect = (option) => {
+    setSelectedOption(option);
+  };
+
+  const handleSubmit = () => {
+    if (selectedOption !== null) {
+      const isAnswerCorrect = selectedOption === answer; 
+      onNext(isAnswerCorrect);
+    } else {
+      alert("Please select an answer before continuing.");
+    }
+  };
 
   return (
     <Box>
-      <FormControl as="fieldset" color={'black'}>
-        <FormLabel as="legend">{scenario}</FormLabel>
-        <RadioGroup>
+      <Box>
+        <Box fontWeight="bold" mb={2}>{scenario}</Box>
+        <RadioGroup onChange={handleAnswerSelect} value={selectedOption}>
           <Stack spacing={3}>
             {options.map((option, index) => (
-              <Radio key={index}>
+              <Radio key={index} value={option}>
                 {option}
               </Radio>
             ))}
           </Stack>
         </RadioGroup>
-      </FormControl>
+      </Box>
+      <IconButton
+          aria-label="right-arrow"
+          variant="ghost"
+          position="relative"
+          transform={'translate(0%, -50%)'}
+          zIndex={2}
+          mt={50}
+          icon={<Image src="/next.png" maxH={'120px'} />}
+          onClick={handleSubmit}
+        />
     </Box>
   );
 }
 
-// TODO: pass in specific module here 
-export default function ModuleQuiz({module_name}) {
+
+export default function ModuleQuiz({appState, setAppState, module_name}) {
+  const [quizInfo, setQuizInfo] = useState({
+    topic: "",
+    points: 0,
+  });
+  const [isLoading, setIsLoading] = useState(false);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setIsLoading(true);
+    if ( quizInfo.topic && quizInfo.points ) {
+      try {
+        const token = localStorage.getItem("CashFlow_Token");
+        apiClient.setToken(token);
+        const { data, error, message } = await apiClient.quiz({
+          id: appState.user.id,
+          topic: quizInfo.topic,
+          points: quizInfo.points,
+        });
+        console.log(data);
+        setAppState((prevState) => ({
+          ...prevState,
+          quizzes: [data.quiz, ...prevState.quizzes],
+        }));
+      } catch (err) {
+        console.log(err);
+      }
+      setquizInfo((prevState) => ({
+        ...prevState,
+        topic: "",
+        points: 0,
+      }));    }
+    setIsLoading(false);
+  }
+  console.log(appState)
+
+
+  
   const [slider, setSlider] = useState(settings);
   const top = useBreakpointValue({ base: '90%', md: '50%' });
   const side = useBreakpointValue({ base: '30%', md: '40px' });
@@ -96,20 +176,8 @@ export default function ModuleQuiz({module_name}) {
     >
       <Box>
       <Image src='/marcus.png' position={'absolute'} top={'25px'} ml={'200px'} zIndex={'1'} />
-      <Box position={'relative'} height={'800px'} width={'100vh'} overflow={'scroll'} borderRadius={'3xl'} backgroundColor={'var(--lightblue)'}>
-        {/* Left Icon */}
-        <IconButton
-          aria-label="left-arrow"
-          variant="ghost"
-          position="absolute"
-          left={side}
-          top={top}
-          transform={'translate(0%, -50%)'}
-          zIndex={2}
-          icon={<Image src="/back.png" maxH={'120px'} />}
-          onClick={() => slider?.slick?.slickPrev()}
-        />
-        {/* Right Icon */}
+      <Box position={'relative'} height={'600px'} width={'100vh'} overflow={'scroll'} borderRadius={'3xl'} backgroundColor={'var(--lightblue)'}>
+        {/* Next */}
         <IconButton
           aria-label="right-arrow"
           variant="ghost"
@@ -119,7 +187,7 @@ export default function ModuleQuiz({module_name}) {
           transform={'translate(0%, -50%)'}
           zIndex={2}
           icon={<Image src="/next.png" maxH={'120px'} />}
-          onClick={() => slider?.slick?.slickNext()}
+          //onClick={}
         />
         
         <Quiz module_name={module_name} slider={slider}/>
