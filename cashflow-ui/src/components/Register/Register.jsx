@@ -362,7 +362,7 @@ export default function Register({ appState, setAppState }) {
                   )}
                   <Button
                     onClick={handleSubmit}
-                    width={"60%"}
+                    width={"fit-content"}
                     borderRadius={"20px"}
                     height={"45px"}
                     fontSize={"x-large"}
@@ -390,7 +390,7 @@ export default function Register({ appState, setAppState }) {
                 Have an account?
                 <Link
                   href="/login"
-                  style={{ textDecoration: "none", color: "var(--blue)" }}
+                  style={{  textDecoration: "none", color: "var(--blue)" }}
                 >
                   <em> Sign In</em>
                 </Link>
