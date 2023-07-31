@@ -68,16 +68,6 @@ router.post("/updatequiz", async function (req, res, next) {
   }
 });
 
-
-router.post("/updatequiz", async function (req, res, next) {
-  try {
-    const quiz = await User.insertQuiz(req.body);
-    return res.status(201).json(quiz);
-  } catch (err) {
-    next(err);
-  }
-});
-
 router.patch("/totalpoints", async function (req, res, next) {
   try {
     const points = await User.updateTotalPoints(req.body);
