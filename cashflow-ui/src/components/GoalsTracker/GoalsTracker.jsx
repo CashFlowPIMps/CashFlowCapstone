@@ -21,13 +21,12 @@ import {
   useColorModeValue,
   Link,
 } from "@chakra-ui/react";
-import "./GoalsTracker.css";
 import apiClient from "../../services/apiClient";
 import { Puff } from "react-loading-icons";
 import GoalTile from "../GoalTile/GoalTile";
 import CashBot from "../Cashbot/Cashbot";
 
-export default function GoalsTracker({ setAppState, appState }) {
+export default function GoalsTracker({ setAppState, appState, cashBotLink }) {
   const [goalInfo, setGoalInfo] = useState({
     goal: "",
     start_date: "",
@@ -37,15 +36,6 @@ export default function GoalsTracker({ setAppState, appState }) {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [goalForm, setGoalForm] = useState(false);
-  // const [isChecked, setIsChecked] = useState(false);
-  // const [checked, setChecked] = useState(false)
-
-  console.log();
-  console.log(goalInfo);
-  // console.log(isChecked)
-  // const handleCheckboxChange = () => {
-  //   setIsChecked(!isChecked);
-  // };
 
   function handleRecord(e) {
     e.preventDefault();
@@ -73,7 +63,6 @@ export default function GoalsTracker({ setAppState, appState }) {
           category: goalInfo.category,
           description: goalInfo.description,
         });
-        console.log(data);
         setAppState((prevState) => ({
           ...prevState,
           goals: [data.goal, ...prevState.goals],
@@ -95,12 +84,16 @@ export default function GoalsTracker({ setAppState, appState }) {
   }
   return (
     <Fragment>
-      <CashBot/>
-      <Box marginTop={"5%"} height={"100vh"} color={"white"}>
+      <Box
+        marginBottom={"5%"}
+        marginTop={"5%"}
+        height={"100vh"}
+        color={"white"}
+      >
         <Box
-        zIndex={"-1"}
-          marginTop={"11%"}
-          marginLeft={"16%"}
+          zIndex={"-1"}
+          mx={"auto"}
+          marginTop={"20vh"}
           rounded={"lg"}
           minHeight={"70vh"}
           maxHeight={"auto"}
@@ -112,13 +105,12 @@ export default function GoalsTracker({ setAppState, appState }) {
         >
           <Image
             marginTop={"-300px"}
-            marginLeft={"29%"}
+            mx={"auto"}
             width={"500px"}
             height={"500px"}
             src="goalGuy.png"
           />
           <Heading
-            // bg={"red"}
             color={useColorModeValue("var(--grey)", "var(--midnight)")}
             fontSize={"300%"}
             textAlign={"center"}
@@ -150,6 +142,10 @@ export default function GoalsTracker({ setAppState, appState }) {
           {goalForm ? (
             <Box
               margin={"0 auto"}
+              border={`1px solid ${useColorModeValue(
+                "var(--grey)",
+                "var(--lightblue)"
+              )}`}
               rounded={"lg"}
               marginTop={"10px"}
               max-height={"40vh"}
@@ -298,7 +294,7 @@ export default function GoalsTracker({ setAppState, appState }) {
                 <Flex margin={"0 auto"} width={"90%"}>
                   <Button
                     onClick={handleRecord}
-                    width={"40%"}
+                    width={"fit-content"}
                     borderRadius={"20px"}
                     height={"45px"}
                     fontSize={"130%"}
@@ -318,7 +314,7 @@ export default function GoalsTracker({ setAppState, appState }) {
                   </Button>
                   <Button
                     onClick={handleSubmit}
-                    width={"40%"}
+                    width={"fit-content"}
                     borderRadius={"20px"}
                     height={"45px"}
                     fontSize={"130%"}
@@ -345,16 +341,25 @@ export default function GoalsTracker({ setAppState, appState }) {
               justifyContent={"space-evenly"}
               marginTop={"20px"}
               direction={"row"}
-              // bg={"yellow"}
               spacing={"2%"}
             >
-              {appState.goals.map((userGoal) => {
-                return <GoalTile userGoal={userGoal} />;
+              {appState.goals.map((userGoal, ind) => {
+                return (
+                  userGoal.status === "In progress" && (
+                    <GoalTile
+                      ind={ind}
+                      setAppState={setAppState}
+                      appState={appState}
+                      userGoal={userGoal}
+                    />
+                  )
+                );
               })}
             </Flex>
           )}
         </Box>
       </Box>
+      <CashBot cashBotLink={cashBotLink}/>
     </Fragment>
   );
 }

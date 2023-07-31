@@ -16,7 +16,6 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-// import { Link } from "react-router-dom";
 
 export default function Navbar({ setAppState, appState }) {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -63,9 +62,9 @@ export default function Navbar({ setAppState, appState }) {
         position={"relative"}
       >
         {/* Clicking on logo leads back to homepage */}
-        <Flex h={20} alignItems={"center"} justifyContent={"space-between"}>
+        <Flex paddingTop={"1g%"} h={20} alignItems={"center"} justifyContent={"space-between"}>
           <Link href="/">
-            <Box>
+            <Box marginLeft={30}>
               <img src={"/logo.png"} width={90} height={90} />
             </Box>
           </Link>
@@ -92,10 +91,10 @@ export default function Navbar({ setAppState, appState }) {
                   minW={0}
                 >
                   <Avatar
-                    size={"sm"}
+                    size={"lg"}
                     src={
-                      appState.user !== {} 
-                        ? appState.user.image_url
+                      appState.user.image_url !== ''
+                      ? appState.user.image_url
                         : "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
                     }
                   />
@@ -108,8 +107,8 @@ export default function Navbar({ setAppState, appState }) {
                     <Avatar
                       size={"2xl"}
                       src={
-                        appState.user !== {} 
-                          ? appState.user.image_url
+                        appState.user.image_url !== ''
+                        ? appState.user.image_url
                           : "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
                       }
                     />
@@ -120,6 +119,9 @@ export default function Navbar({ setAppState, appState }) {
                   </Center>
                   <Center>
                     <p>Points: {appState.user.total_points}</p>
+                  </Center>
+                  <Center>
+                    <p>Status: {appState.user.status}</p>
                   </Center>
                   <br />
                   <MenuDivider />
@@ -149,7 +151,7 @@ export default function Navbar({ setAppState, appState }) {
 
             <Flex alignItems={"center"}>
               <Stack direction={"row"} spacing={7} ml={7}>
-                <Button onClick={toggleColorMode}>
+                <Button size={"md"} onClick={toggleColorMode}>
                   {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
                 </Button>
               </Stack>

@@ -1,18 +1,30 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Flex, Box, HStack, Checkbox, Image, Text } from "@chakra-ui/react";
+import {
+  Flex,
+  Box,
+  HStack,
+  Checkbox,
+  Image,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import apiClient from "../../services/apiClient";
 
-export default function GoalTile({ userGoal }) {
+export default function GoalTile({ setAppState, appState, userGoal, ind }) {
   const [isChecked, setIsChecked] = useState(false);
   const [showGif, setShowGif] = useState(false);
 
   const handleCheckboxChange = () => {
+    console.log(isChecked)
+    console.log("kjshdkfjhskldhblfaihbfliuahbfluahbrf")
     setIsChecked(!isChecked);
   };
-  console.log(isChecked);
   useEffect(() => {
+    if (appState.goals[ind].status === "Accomplished") {
+      setIsChecked(true);
+    }
     const timer = setTimeout(() => {
       setShowGif(false);
-      console.log(isChecked);
     }, 5000);
 
     // Clear the timer if the component unmounts before 5 seconds
@@ -22,6 +34,23 @@ export default function GoalTile({ userGoal }) {
   useEffect(() => {
     if (isChecked === true) {
       setShowGif(true);
+    }
+    async function accompGoal() {
+      try {
+        const token = localStorage.getItem("CashFlow_Token");
+        apiClient.setToken(token);
+        const { data, error, message } = await apiClient.goalStat({
+          id: userGoal.id,
+        });
+        const updatedAppState = appState.goals;
+        updatedAppState[ind].status = data.status;
+        setAppState({ ...appState, goals: updatedAppState });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    if (isChecked === true) {
+      accompGoal();
     }
   }, [isChecked]);
   let wordImage = userGoal.category.charAt(0).toUpperCase();
@@ -97,6 +126,10 @@ export default function GoalTile({ userGoal }) {
           width={"70px"}
           height={"60px"}
           borderRadius={"50%"}
+          boxShadow={`7px 7px 7px ${useColorModeValue(
+            "var(--darkblue)",
+            "var(--lightblue)"
+          )}`}
           paddingTop={"2%"}
           paddingLeft={"8%"}
           fontSize={"xx-large"}
@@ -117,18 +150,32 @@ export default function GoalTile({ userGoal }) {
         >
           {userGoal.category}
         </Text>
-        <Checkbox
-          color={"black"}
+        <br />
+        <input
+          type="checkbox"
+          checked={isChecked}
+          onChange={handleCheckboxChange}
+          style={{
+            width: "15px",
+            height:"15px",
+            border: `${useColorModeValue("var(--grey)", "var(--midnight)")}`,
+            color: `${useColorModeValue("var(--grey)", "var(--midnight)")}`,
+            marginTop: "10px",
+          }}
+        />
+        <span style={{color: "var(--midnight)"}}>&nbsp; Goal Accomplished?</span>
+        {/* <Checkbox
+          color={useColorModeValue("var(--grey)", "var(--midnight)")}
           marginTop={"10px"}
           checked={isChecked}
           onChange={handleCheckboxChange}
           colorScheme="var(--darkblue)"
-          border={"var(--midnight)"}
+          border={useColorModeValue("var(--grey)", "var(--midnight)")}
         >
           Goal Accomplished?
-        </Checkbox>
+        </Checkbox> */}
         <Text
-          color={"var(--midnight)"}
+          color={useColorModeValue("var(--grey)", "var(--midnight)")}
           fontWeight={"bold"}
           textAlign={"center"}
           marginTop={"5px"}
@@ -152,7 +199,7 @@ export default function GoalTile({ userGoal }) {
               Start Date
             </Text>
             <Text
-              color={"var(--midnight)"}
+              color={useColorModeValue("var(--grey)", "var(--midnight)")}
               fontWeight={"bold"}
               textAlign={"center"}
               marginTop={"5px"}
@@ -171,7 +218,7 @@ export default function GoalTile({ userGoal }) {
               End Date
             </Text>
             <Text
-              color={"var(--midnight)"}
+              color={useColorModeValue("var(--grey)", "var(--midnight)")}
               fontWeight={"bold"}
               textAlign={"center"}
               marginTop={"5px"}
@@ -182,7 +229,10 @@ export default function GoalTile({ userGoal }) {
             </Text>
           </Flex>
         </HStack>
-        <Text fontSize={"x-large"} color={"var(--midnight)"}>
+        <Text
+          fontSize={"x-large"}
+          color={useColorModeValue("var(--grey)", "var(--midnight)")}
+        >
           Description:
         </Text>
         <Text

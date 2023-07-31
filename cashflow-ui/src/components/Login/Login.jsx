@@ -28,7 +28,6 @@ export default function Login({ setAppState }) {
   const [showPassword, setShowPassword] = useState(false);
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-  console.log(emailPattern.test(userInfo.email))
   const navigateTo = useNavigate();
   async function handleSubmit(e) {
     e.preventDefault();
@@ -81,7 +80,7 @@ export default function Login({ setAppState }) {
           textAlign={"center"}
           width={"40%"}
           fontSize={"300%"}
-          margin={"0 auto"}
+          mx={"auto"}
           color={useColorModeValue("var(--midnight)", "var(--grey)")}
         >
           Welcome Back Academic
@@ -89,8 +88,7 @@ export default function Login({ setAppState }) {
         <Image
           marginTop={"-80px"}
           textAlign={"center"}
-          marginLeft={"auto"}
-          marginRight={"auto"}
+          mx={"auto"}
           width={"500px"}
           height={"500px"}
           src="/tiffany.png"
@@ -107,18 +105,15 @@ export default function Login({ setAppState }) {
             spacing={8}
             mx={"auto"}
             maxW={"lg"}
-            py={12}
-            px={6}
           >
             <Box
-              marginTop={"-80px"}
-              rounded={"lg"}
               max-height={"40vh"}
               borderRadius={"40px"}
               width={"40vh"}
               bg={useColorModeValue("var(--midnight)", "var(--lightblue)")}
               boxShadow={"lg"}
               p={8}
+              mx={"auto"}
             >
               <Stack align={"center"}>
                 <Heading
@@ -190,21 +185,20 @@ export default function Login({ setAppState }) {
                     </InputRightElement>
                   </InputGroup>
                 </FormControl>
-                <Stack spacing={10}>
+                <Stack spacing={1}>
                   {userInfo.email.length === 0 ||
                   emailPattern.test(userInfo.email) ? null : (
-                    <Text as="span"
+                    <Text
+                      as="span"
                       style={{
-                        color: "red",
-                        marginBottom: "-40px",
-                        marginLeft: "57.5%",
+                        color: "red"
                       }}
                     >
                       Invalid email input.
                     </Text>
                   )}
                   {loginError !== "" && (
-                    <Text as="span" style={{ color: "red", marginBottom: "-40px", marginLeft: "34%" }}>
+                    <Text as="span" style={{ color: "red" }}>
                       {loginError}
                     </Text>
                   )}
@@ -219,7 +213,7 @@ export default function Login({ setAppState }) {
                     color={"var(--lightblue)"}
                     _hover={{
                       borderColor: "var(--grey)",
-                      border: "1px solid"
+                      border: "1px solid",
                     }}
                   >
                     {isLoading ? (
@@ -237,7 +231,7 @@ export default function Login({ setAppState }) {
                 fontSize={"x-large"}
               >
                 New to Us?
-                <Link href="/register" style={{ color: "var(--blue)" }}>
+                <Link href="/register" style={{ textDecoration:"none", color: "var(--blue)" }}>
                   <em> Register</em>
                 </Link>
               </Text>

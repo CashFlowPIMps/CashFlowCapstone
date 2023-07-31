@@ -22,6 +22,7 @@ import GoodJob from '../Success/GoodJob'
 import Complete from '../Success/Complete'
 
 
+
 // Settings for the slider
 const settings = {
   dots: false,
@@ -193,7 +194,6 @@ export default function ModuleQuiz({appState, setAppState, module_name}) {
       }));    }
     setIsLoading(false);
   }
-  console.log(appState)
 
 
   

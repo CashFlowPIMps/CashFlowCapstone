@@ -25,7 +25,9 @@ class DbQuery {
                 last_name,
                 username,
                 email,
-                total_points
+                total_points,
+                status, 
+                image_url
       `,
       [
         normalizedEmail,
@@ -71,10 +73,12 @@ class DbQuery {
         )
         VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING   
+                    id,
                     goal,   
                     start_date, 
                     end_date,
                     category, 
+                    status,
                     description
 
     `,
@@ -104,7 +108,9 @@ class DbQuery {
   static async goals(id) {
     const goals = await db.query(
       `SELECT 
+      id,
       goal,
+      status,
       start_date, 
       end_date,
       category, 
@@ -121,7 +127,8 @@ class DbQuery {
     const quizzes = await db.query(
       `SELECT 
       topic, 
-      points
+      points,
+      created_at
             FROM quiz
             WHERE user_id = $1
             ORDER BY created_at DESC`,
@@ -152,6 +159,22 @@ class DbQuery {
       `,
       [image_url, status, id]
     );
+    return imageStats.rows[0];
+  }
+
+  static async updateGoalStatus(id) {
+    console.log(id)
+    const imageStats = await db.query(
+      `UPDATE goals
+      SET status = $1
+      WHERE id = $2
+      RETURNING 
+      status
+      `,
+       ['Accomplished',id]
+    );
+    console.log(imageStats)
+    console.log(imageStats.rows[0])
     return imageStats.rows[0];
   }
 }
