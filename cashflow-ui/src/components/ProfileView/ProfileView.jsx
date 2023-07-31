@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import ProfileModule from "./ProfileModule";
 import GoalTile from "../GoalTile/GoalTile";
+import Badges from "./Badges";
 
 export default function ProfileView({ appState, setAppState }) {
   const fakeQuizzes = [
@@ -82,7 +83,7 @@ export default function ProfileView({ appState, setAppState }) {
                 Points
               </Text>
             </Flex>
-
+             
             <Flex
               margin={"0 auto"}
               flex={"wrap"}
@@ -99,6 +100,7 @@ export default function ProfileView({ appState, setAppState }) {
               </Text>
             </Flex>
           </Flex>
+          <Badges appState={appState}/>
           <Heading
             color={useColorModeValue("var(--grey)", "var(--midnight)")}
             textAlign={"center"}
