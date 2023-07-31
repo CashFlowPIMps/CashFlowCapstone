@@ -17,6 +17,10 @@ import Slider from 'react-slick';
 import moduleQuiz from '../../../../cashflow-api/modules/modulequiz.json';
 import apiClient from "../../services/apiClient";
 import NotQuite from '../Fail/NotQuite';
+import Failure from '../Fail/Failure';
+import GoodJob from '../Success/GoodJob'
+import Complete from '../Success/Complete'
+
 
 // Settings for the slider
 const settings = {
@@ -30,54 +34,74 @@ const settings = {
   slidesToScroll: 1,
 };
 
-function Quiz({ module_name, slider, setAppState, onQuizFinish }) {
+function Quiz({ module_name, slider, setAppState, isFinished, setIsFinished, score, setScore }) {
   const quiz_data = moduleQuiz[module_name] || {};
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [score, setScore] = useState(0);
-  const [isFinished, setIsFinished] = useState(false);
+
+  const [showGoodJob, setShowGoodJob] = useState(false);
+  const [showNotQuite, setShowNotQuite] = useState(false);
 
   const handleNext = (isAnswerCorrect) => {
     if (isAnswerCorrect) {
       setScore((prevScore) => prevScore + 1);
+      setShowGoodJob(true); // Show the GoodJob component\
+      console.log("Good Job!")
+      setCurrentIndex((prevIndex) => prevIndex + 1); // Move to the next question
+      // console.log(showGoodJob, showNotQuite)
+    } else {
+      setShowNotQuite(true); // Show the NotQuite component
+      console.log("Not Quite!")
+      // console.log(showGoodJob, showNotQuite)
     }
-    setCurrentIndex((prevIndex) => prevIndex + 1);
+
   };
 
-  const handleQuizFinish = () => {
-    setIsFinished(true);
-    onQuizFinish(score); // Call the onQuizFinish function passed from the parent component with the final score
-  };
+  const handleNextClick = () => {
+    if (showGoodJob && !showNotQuite) {
+      // If the GoodJob component is shown, proceed to the next question
+      setShowGoodJob(false); // Hide the GoodJob component
+      // setCurrentIndex((prevIndex) => prevIndex + 1); // Move to the next question
+      console.log("Next question")
+    } else if (showNotQuite) {
+      // If the NotQuite component is shown, proceed to the next question
+      setShowNotQuite(false); // Hide the NotQuite component
+      // setCurrentIndex((prevIndex) => prevIndex + 1); // Move to the next question
+      console.log("Next question")
+    }
 
+  };
+  console.log(showGoodJob && !showNotQuite)
   return (
-    <Slider {...slider}>
+    <Slider {...slider} >
       {quiz_data.questions?.map((question, index) => (
-        <div key={index}>
+        <Box
+        key={index}
+        height={'6xl'}
+        backgroundPosition="center"
+        backgroundRepeat="no-repeat"
+        left={`${index * 100}%`}
+        >
           {currentIndex === index ? (
             <>
-              <Question question={question} onNext={handleNext} />
-              {currentIndex === quiz_data.questions.length - 1 && isFinished ? (
-                score >= quiz_data.questions.length / 2 ? (
-                  <Success />
-                ) : (
-                  <Fail />
-                )
-              ) : null}
+              <Question question={question} onNext={handleNext} index={index} currentIndex={currentIndex} />
             </>
           ) : (
             <>
-              {index < score ? <GoodJob /> : <NotQuite />}
-              <Question question={question} onNext={handleNext} />
+              {(showGoodJob && !showNotQuite) ? (
+                <>
+                <GoodJob onNextClick={handleNextClick} />
+                </>
+              ) : (
+                showNotQuite && <NotQuite onNextClick ={handleNextClick} />
+              )}
             </>
           )}
-        </div>
+        </Box>
       ))}
     </Slider>
-  );
-}
+  )}
 
-
-
-function Question({ question, onNext }) {
+function Question({ question, onNext , index, currentIndex}) {
   const { scenario, options, answer } = question;
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -94,13 +118,16 @@ function Question({ question, onNext }) {
       alert("Please select an answer before continuing.");
     }
   };
-
+  console.log("QUESTION #", index, currentIndex)
+  console.log(question)
   return (
     <Box>
-      <Box>
-        <Box fontWeight="bold" mb={2}>{scenario}</Box>
+      <Box display={'flex'} justifyContent={'center'} flexDirection={'column'} alignItems={'center'}>
+        <Box fontWeight="bold" color={'var(--midnight)'} mb={4} fontSize={'xl'}>
+          {scenario}
+        </Box>
         <RadioGroup onChange={handleAnswerSelect} value={selectedOption}>
-          <Stack spacing={3}>
+          <Stack spacing={3} color={'var(--midnight)'}>
             {options.map((option, index) => (
               <Radio key={index} value={option}>
                 {option}
@@ -108,17 +135,17 @@ function Question({ question, onNext }) {
             ))}
           </Stack>
         </RadioGroup>
-      </Box>
-      <IconButton
+        <IconButton
           aria-label="right-arrow"
           variant="ghost"
           position="relative"
           transform={'translate(0%, -50%)'}
           zIndex={2}
-          mt={50}
+          mt={8}
           icon={<Image src="/next.png" maxH={'120px'} />}
           onClick={handleSubmit}
         />
+      </Box>
     </Box>
   );
 }
@@ -130,6 +157,8 @@ export default function ModuleQuiz({appState, setAppState, module_name}) {
     points: 0,
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [score, setScore] = useState(0);
+  const [isFinished, setIsFinished] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -144,10 +173,16 @@ export default function ModuleQuiz({appState, setAppState, module_name}) {
           points: quizInfo.points,
         });
         console.log(data);
-        setAppState((prevState) => ({
-          ...prevState,
-          quizzes: [data.quiz, ...prevState.quizzes],
-        }));
+        onQuizFinish(score);
+        setIsFinished(true);
+
+      setAppState((prevState) => ({
+        ...prevState,
+        quiz: [
+          ...prevState.quiz,
+          { topic: module_name, points: score }
+        ],
+      }));
       } catch (err) {
         console.log(err);
       }
@@ -165,7 +200,7 @@ export default function ModuleQuiz({appState, setAppState, module_name}) {
   const [slider, setSlider] = useState(settings);
   const top = useBreakpointValue({ base: '90%', md: '50%' });
   const side = useBreakpointValue({ base: '30%', md: '40px' });
-  
+
   return (
     <>
     <Box
@@ -173,27 +208,23 @@ export default function ModuleQuiz({appState, setAppState, module_name}) {
       justifyContent="center"
       alignItems="center"
       height="100vh" 
+      position={'relative'}
+      overflow="scroll"  // Add this line to enable scrolling when slides exceed container's visible area
     >
-      <Box>
-      <Image src='/marcus.png' position={'absolute'} top={'25px'} ml={'200px'} zIndex={'1'} />
-      <Box position={'relative'} height={'600px'} width={'100vh'} overflow={'scroll'} borderRadius={'3xl'} backgroundColor={'var(--lightblue)'}>
-        {/* Next */}
-        <IconButton
-          aria-label="right-arrow"
-          variant="ghost"
-          position="absolute"
-          right={side}
-          top={top}
-          transform={'translate(0%, -50%)'}
-          zIndex={2}
-          icon={<Image src="/next.png" maxH={'120px'} />}
-          //onClick={}
-        />
+        {/* <Image src='/marcus.png' position={'absolute'} top={'25px'} ml={'200px'} zIndex={'1'} /> */}
+          
+          <Box position={'relative'} height={'900px'} width={'100vh'} overflow={'hidden'} borderRadius={'3xl'} backgroundColor={'var(--lightblue)'}>
         
-        <Quiz module_name={module_name} slider={slider}/>
+          <Quiz
+            module_name={module_name}
+            slider={slider}
+            setAppState={setAppState}
+            isFinished={isFinished}
+            setIsFinished={setIsFinished}
+            score={score}
+            setScore={setScore}
+          />
 
-        
-      </Box>
       </Box>
     </Box>
 
