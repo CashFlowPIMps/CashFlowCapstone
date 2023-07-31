@@ -125,6 +125,22 @@ function App() {
             }
           />
           <Route
+            path="/profile"
+            element={
+              !appState.isAuthenticated ? <ErrorPage errorLink={errorLink}/> : (
+                <ProfileView setAppState={setAppState} appState={appState}/>
+              )
+            }
+          />
+          <Route
+            path="/goals"
+            element={
+              !appState.isAuthenticated ? <ErrorPage errorLink={errorLink}/> : (
+                <GoalsTracker setAppState={setAppState} appState={appState} cashBotLink={cashBotLink}/>
+              )
+            }
+          />
+          <Route
             path="/login"
             element={
               appState.isAuthenticated ? <ErrorPage errorLink={errorLink}/> : (

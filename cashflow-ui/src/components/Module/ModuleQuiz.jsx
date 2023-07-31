@@ -38,9 +38,6 @@ function Quiz({
   module_name,
   setSlider,
   slider,
-  setAppState,
-  isFinished,
-  setIsFinished,
   score,
   setScore,
 }) {
@@ -55,14 +52,10 @@ function Quiz({
     if (isAnswerCorrect) {
       setScore((prevScore) => prevScore + 1);
       setShowGoodJob(true); // Show the GoodJob component\
-      console.log("Good Job!");
       setCurrentIndex((prevIndex) => prevIndex + 1); // Move to the next question
-      // console.log(showGoodJob, showNotQuite)
     } else {
       setShowNotQuite(true); // Show the NotQuite component
-      console.log("Not Quite!");
       setCurrentIndex((prevIndex) => prevIndex + 1); // Move to the next question
-      // console.log(showGoodJob, showNotQuite)
     }
   };
 
@@ -70,13 +63,9 @@ function Quiz({
     if (showGoodJob && !showNotQuite) {
       // If the GoodJob component is shown, proceed to the next question
       setShowGoodJob(false); // Hide the GoodJob component
-      // setCurrentIndex((prevIndex) => prevIndex + 1); // Move to the next question
-      console.log("Next question");
     } else if (showNotQuite) {
       // If the NotQuite component is shown, proceed to the next question
       setShowNotQuite(false); // Hide the NotQuite component
-      // setCurrentIndex((prevIndex) => prevIndex + 1); // Move to the next question
-      console.log("Next question");
     }
     slider?.slickNext();
   };
@@ -88,10 +77,14 @@ function Quiz({
           Question={Question}
           GoodJob={GoodJob}
           NotQuite={NotQuite}
+          Failure={Failure}
+          Complete={Complete}
           showGoodJob={showGoodJob}
           showNotQuite={showNotQuite}
           question={question}
           index={index}
+          // isFinished={isFinished}
+          // setIsFinished={setIsFinished}
           currentIndex={currentIndex}
           handleNext={handleNext}
           handleNextClick={handleNextClick}
@@ -101,7 +94,7 @@ function Quiz({
   );
 }
 
-function Question({ question, onNext, index, currentIndex }) {
+function Question({ question, onNext }) {
   const { scenario, options, answer } = question;
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -118,8 +111,6 @@ function Question({ question, onNext, index, currentIndex }) {
       alert("Please select an answer before continuing.");
     }
   };
-  console.log("QUESTION #", index, currentIndex);
-  console.log(question);
   return (
     <Box bg={"red"}>
       <Box
@@ -157,12 +148,16 @@ function Question({ question, onNext, index, currentIndex }) {
 
 export default function ModuleQuiz({ appState, setAppState, module_name }) {
   const [quizInfo, setQuizInfo] = useState({
-    topic: "",
+    topic: module_name,
     points: 0,
   });
   const [isLoading, setIsLoading] = useState(false);
   const [score, setScore] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
+
+  function onQuizFinish(score) {
+    
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -197,9 +192,7 @@ export default function ModuleQuiz({ appState, setAppState, module_name }) {
   }
 
   const [slider, setSlider] = useState(null);
-  const top = useBreakpointValue({ base: "90%", md: "50%" });
-  const side = useBreakpointValue({ base: "30%", md: "40px" });
-
+  
   return (
     <>
       <Box
@@ -210,7 +203,6 @@ export default function ModuleQuiz({ appState, setAppState, module_name }) {
         position={"relative"}
         overflow="scroll" // Add this line to enable scrolling when slides exceed container's visible area
       >
-        {/* <Image src='/marcus.png' position={'absolute'} top={'25px'} ml={'200px'} zIndex={'1'} /> */}
 
         <Box
           position={"relative"}
