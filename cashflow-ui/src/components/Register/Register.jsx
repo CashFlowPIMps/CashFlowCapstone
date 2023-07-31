@@ -391,7 +391,7 @@ export default function Register({ appState, setAppState }) {
                 Have an account?
                 <Link
                   href="/login"
-                  style={{  textDecoration: "none", color: "var(--blue)" }}
+                  style={{ textDecoration: "none", color: "var(--blue)" }}
                 >
                   <em> Sign In</em>
                 </Link>
