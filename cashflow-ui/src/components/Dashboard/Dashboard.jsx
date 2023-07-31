@@ -4,6 +4,7 @@ import { Image, Box } from '@chakra-ui/react'
 import { Link } from "react-router-dom";
 import ModuleInfo from '../Module/ModuleInfo';
 import { useState } from 'react';
+import Footer from '../App/Footer';
 
 export default function Dashboard({appState}) {
   // TODO: Separate beginner & intermediate dashboard 
@@ -14,6 +15,7 @@ export default function Dashboard({appState}) {
       dashboard = ['hysavings','cdsavings','roth','401k']
 
   return (
+    <>
     <Box display={'flex'} justifyContent={'center'} height={'100vh'}>
     {dashboard.map((img) =>(
       <Box>
@@ -23,5 +25,7 @@ export default function Dashboard({appState}) {
         </Box>
     ))}
     </Box>
+    <Footer />
+    </>
   )
 }

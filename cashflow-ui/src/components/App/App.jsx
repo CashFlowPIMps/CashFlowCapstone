@@ -107,7 +107,7 @@ function App() {
           />
           <Route
             path="/about"
-            element={appState.isAuthenticated ? <ErrorPage/> : <AboutGrid />}
+            element={<AboutGrid />}
           />
           <Route
             path="/register"
