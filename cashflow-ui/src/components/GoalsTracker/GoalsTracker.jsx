@@ -83,7 +83,12 @@ export default function GoalsTracker({ setAppState, appState }) {
   }
   return (
     <Fragment>
-      <Box marginBottom={"5%"} marginTop={"5%"} height={"100vh"} color={"white"}>
+      <Box
+        marginBottom={"5%"}
+        marginTop={"5%"}
+        height={"100vh"}
+        color={"white"}
+      >
         <Box
           zIndex={"-1"}
           mx={"auto"}
@@ -136,7 +141,10 @@ export default function GoalsTracker({ setAppState, appState }) {
           {goalForm ? (
             <Box
               margin={"0 auto"}
-              border={`1px solid ${useColorModeValue("var(--grey)", "var(--lightblue)")}`}
+              border={`1px solid ${useColorModeValue(
+                "var(--grey)",
+                "var(--lightblue)"
+              )}`}
               rounded={"lg"}
               marginTop={"10px"}
               max-height={"40vh"}
@@ -332,11 +340,19 @@ export default function GoalsTracker({ setAppState, appState }) {
               justifyContent={"space-evenly"}
               marginTop={"20px"}
               direction={"row"}
-              // bg={"yellow"}
               spacing={"2%"}
             >
-              {appState.goals.map((userGoal) => {
-                return <GoalTile userGoal={userGoal} />;
+              {appState.goals.map((userGoal, ind) => {
+                return (
+                  userGoal.status === "In progress" && (
+                    <GoalTile
+                      ind={ind}
+                      setAppState={setAppState}
+                      appState={appState}
+                      userGoal={userGoal}
+                    />
+                  )
+                );
               })}
             </Flex>
           )}
