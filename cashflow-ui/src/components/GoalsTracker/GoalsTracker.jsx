@@ -52,7 +52,7 @@ export default function GoalsTracker({ setAppState, appState }) {
       goalInfo.description
     ) {
       try {
-        const token = localStorage.getItem("LifeTracker_Token");
+        const token = localStorage.getItem("CashFlow_Token");
         apiClient.setToken(token);
         const { data, error, message } = await apiClient.goals({
           id: appState.user.id,

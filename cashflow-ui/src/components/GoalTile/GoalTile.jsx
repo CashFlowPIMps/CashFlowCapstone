@@ -37,7 +37,7 @@ export default function GoalTile({ setAppState, appState, userGoal, ind }) {
     }
     async function accompGoal() {
       try {
-        const token = localStorage.getItem("LifeTracker_Token");
+        const token = localStorage.getItem("CashFlow_Token");
         apiClient.setToken(token);
         const { data, error, message } = await apiClient.goalStat({
           id: userGoal.id,
