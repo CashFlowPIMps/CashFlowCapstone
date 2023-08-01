@@ -12,15 +12,15 @@ import ProfileModule from "./ProfileModule";
 import GoalTile from "../GoalTile/GoalTile";
 
 export default function ProfileView({ appState, setAppState }) {
-  const fakeQuizzes = [
-    {
-      topic: "Bank Account Basics",
-      points: "100",
-      created_at: "07/30/2023",
-    },
-    { topic: "Credit Cards", points: "200", created_at: "07/31/2023" },
-    { topic: "Debt Management", points: "500", created_at: "08/01/2023" },
-  ];
+  // const fakeQuizzes = [
+  //   {
+  //     topic: "Bank Account Basics",
+  //     points: "100",
+  //     created_at: "07/30/2023",
+  //   },
+  //   { topic: "Credit Cards", points: "200", created_at: "07/31/2023" },
+  //   { topic: "Debt Management", points: "500", created_at: "08/01/2023" },
+  // ];
   return (
     <Fragment>
       <Box marginTop={"5%"} height={"100vh"} color={"white"}>
@@ -113,7 +113,7 @@ export default function ProfileView({ appState, setAppState }) {
             direction={"row"}
             spacing={"2%"}
           >
-            {fakeQuizzes.map((userQuiz) => {
+            {appState.quizzes?.map((userQuiz) => {
               return <ProfileModule userQuiz={userQuiz} />;
             })}
           </Flex>
