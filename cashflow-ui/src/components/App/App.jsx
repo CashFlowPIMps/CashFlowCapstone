@@ -93,7 +93,7 @@ function App() {
     });
   }, [appState.isAuthenticated]);
 
-  console.log(appState)
+  //console.log(appState)
 
   return (
     <div className="app" style={{ backgroundColor: bgColor }}>
@@ -182,6 +182,8 @@ function App() {
                     setInfoPage={setInfoPage}
                     infoPage={infoPage}
                     module_name={module_name}
+                    appState={appState}
+                    setAppState={setAppState}
                   />
                 ) : <ErrorPage errorLink={errorLink}/>
               }
