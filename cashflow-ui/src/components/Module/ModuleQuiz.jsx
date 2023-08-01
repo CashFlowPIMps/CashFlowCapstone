@@ -85,7 +85,7 @@ function Quiz({
   };
 
   const quizLength = quiz_data.questions.length
-  console.log("length: ", quizLength)
+
   return (
     <>
     <Slider {...settings} ref={(slider) => setSlider(slider)}>

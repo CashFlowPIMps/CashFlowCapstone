@@ -5,10 +5,9 @@ import {
   Heading,
   Image,
 } from '@chakra-ui/react';
-import { useNavigate } from 'react-router';
+import { Navigate } from 'react-router';
 
 export default function Failure(module_name) {
-    // TODO: Take in module, question #, correct explanation, point value
     const navigate = useNavigate();
     console.log(module_name.module_name)
     function handleRestart() {
@@ -42,6 +41,7 @@ export default function Failure(module_name) {
           mt={700}
           icon={<Image src="/menu.png" maxH={'300px'} />}
          onClick={handleExit}
+
         />
         {/* Start Icon */}
         <IconButton
