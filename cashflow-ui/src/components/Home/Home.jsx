@@ -77,15 +77,15 @@ export default function Home() {
           <div class="story">
             <div
               class="bg"
-              style={{
-                background: `url("homeChar1.png") 50% 46vh no-repeat fixed`,
-                marginTop: " -40vh",
-                backgroundSize: " 60vh 60vh",
-                height: " 150vh",
-                position: "absolute",
-                width: "inherit",
-                zIndex: "10",
-              }}
+              // style={{
+                // background: "url(homeChar1.png) 50% 46vh no-repeat fixed"
+                // marginTop: " -40vh",
+                // backgroundSize: " 60vh 60vh",
+                // height: " 150vh",
+                // position: "absolute",
+                // width: "inherit",
+                // zIndex: "10",
+              // }}
             ></div>
           </div>
         </div>
@@ -96,15 +96,15 @@ export default function Home() {
           <div class="story">
             <div
               class="bg"
-              style={{
-                background: `url("homeChar2.png") 50% 84.5% no-repeat fixed`,
-                marginTop: " -40vh",
-                backgroundSize: "60vh 60vh",
-                height: " 150vh",
-                position: "absolute",
-                width: "inherit",
-                zIndex: "10"
-              }}
+              // style={{
+                // background: `url("homeChar2.png") 50% 84.5% no-repeat fixed`,
+                // marginTop: " -40vh",
+                // backgroundSize: "60vh 60vh",
+                // height: " 150vh",
+                // position: "absolute",
+                // width: "inherit",
+                // zIndex: "10"
+              // }}
             ></div>
           </div>
         </div>
@@ -115,15 +115,15 @@ export default function Home() {
           <div class="story">
             <div
               class="bg"
-              style={{
-                background: `url("homeChar3.png") 50% 84.5% no-repeat fixed`,
-                marginTop: " -40vh",
-                backgroundSize: "60vh 60vh",
-                height: " 150vh",
-                position: "absolute",
-                width: "inherit",
-                zIndex: "10"
-              }}
+              // style={{
+              //   background: `url("homeChar3.png") 50% 84.5% no-repeat fixed`,
+              //   marginTop: " -40vh",
+              //   backgroundSize: "60vh 60vh",
+              //   height: " 150vh",
+              //   position: "absolute",
+              //   width: "inherit",
+              //   zIndex: "10"
+              // }}
             ></div>
           </div>
         </div>
@@ -138,15 +138,15 @@ export default function Home() {
           <div class="story">
             <div
               class="bg"
-              style={{
-                background: `url("homeChar4.png") 50% 84.5% no-repeat fixed`,
-                marginTop: " -40vh",
-                backgroundSize: "60vh 60vh",
-                height: " 150vh",
-                position: "absolute",
-                width: "inherit",
-                zIndex: "10"
-              }}
+              // style={{
+              //   background: `url("homeChar4.png") 50% 84.5% no-repeat fixed`,
+              //   marginTop: " -40vh",
+              //   backgroundSize: "60vh 60vh",
+              //   height: " 150vh",
+              //   position: "absolute",
+              //   width: "inherit",
+              //   zIndex: "10"
+              // }}
             ></div>
           </div>
         </div>
@@ -160,15 +160,15 @@ export default function Home() {
           <div class="story">
             <div
               class="bg"
-              style={{
-                background: `url("tiffany.png") 50% 65% no-repeat fixed`,
-                marginTop: "-40vh",
-                backgroundSize: "60vh 60vh",
-                height: " 90vh",
-                position: "absolute",
-                width: "inherit",
-                zIndex: "10"
-              }}
+              // style={{
+              //   background: `url("tiffany.png") 50% 65% no-repeat fixed`,
+              //   marginTop: "-40vh",
+              //   backgroundSize: "60vh 60vh",
+              //   height: " 90vh",
+              //   position: "absolute",
+              //   width: "inherit",
+              //   zIndex: "10"
+              // }}
             ></div>
           </div>
           <p
