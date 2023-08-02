@@ -255,8 +255,6 @@ export default function Login({ setAppState }) {
           </Stack>
         </Flex>
       </Box>
-      <Loading/>
-
     </Fragment>
   );
 }

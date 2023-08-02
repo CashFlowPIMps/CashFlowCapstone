@@ -1,11 +1,15 @@
 import React, { Fragment, useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Home.css";
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
   const elementRef = useRef(null);
-
+  const navigateTo = useNavigate()
+  function handleRegister () {
+    console.log("clicked")
+    navigateTo("/register")
+  }
   function handleClick(e) {
     e.preventDefault();
     const scrollToOptions = {
@@ -158,9 +162,9 @@ export default function Home() {
               class="bg"
               style={{
                 background: `url("tiffany.png") 50% 65% no-repeat fixed`,
-                marginTop: " -40vh",
+                marginTop: "-40vh",
                 backgroundSize: "60vh 60vh",
-                height: " 150vh",
+                height: " 90vh",
                 position: "absolute",
                 width: "inherit",
                 zIndex: "10"
@@ -172,7 +176,7 @@ export default function Home() {
             style={{ color: "#0b89e5" }}
             id={`homeText${isVisible ? "-animate" : ""}`}
           >
-            <Link to="/register">Sign Up Today!</Link>
+            <Link to={"/register"}> Sign Up Today! </Link>
           </p>
         </div>
       </div>
