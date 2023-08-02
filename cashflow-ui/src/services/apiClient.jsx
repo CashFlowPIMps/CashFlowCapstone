@@ -4,7 +4,7 @@ class ApiClient {
   constructor(remoteHostUrl) {
     this.token = null;
     // this.remoteHostUrl = "http://localhost:3001";
-    this.remoteHostUrl = "https://cashflow-api-l7eq.onrender.com"
+    this.remoteHostUrl = "https://cashflow-api-gb95.onrender.com"
   }
 
   setToken(token) {
@@ -96,4 +96,4 @@ class ApiClient {
   }
 }
 // export default  new ApiClient("http://localhost:3001");
-export default new ApiClient("https://cashflow-api-l7eq.onrender.com");
+export default new ApiClient("https://cashflow-api-gb95.onrender.com");
