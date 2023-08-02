@@ -9,7 +9,7 @@ class ApiClient {
     } else {
       this.remoteHostUrl = "http://localhost:3001";
     }
-  }
+
 
   setToken(token) {
     this.token = token;
@@ -101,3 +101,4 @@ class ApiClient {
 }
 
 export default new ApiClient(import.meta.env.VITE_REMOTE_URL || "http://localhost:3001");
+
