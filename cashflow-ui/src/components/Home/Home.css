@@ -159,10 +159,20 @@
 .logoCont .bg {
   margin-top: -40vh;
   background-size: 60vh 60vh;
-  height: 150vh;
   position: absolute;
   width: inherit;
   z-index: 10;
+}
+
+.logoCont .bg {
+  height: 90vh;
+
+}
+.homeContainers2 .bg,
+.homeContainers3 .bg,
+.homeContainers1 .bg,
+.homeContainers4 .bg{
+  height: 150vh;
 }
 
 @media (max-width: 500px) {
