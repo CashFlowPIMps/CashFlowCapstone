@@ -16,8 +16,6 @@ import Badges from "./Badges";
 
 
 export default function ProfileView({ appState, setAppState }) {
-  
-
   const [media, moreMedia] = useMediaQuery([
     "(max-width: 1000px)",
     "(max-width: 330px)",
@@ -125,9 +123,20 @@ export default function ProfileView({ appState, setAppState }) {
             direction={"row"}
             spacing={"2%"}
           >
-            {appState.quizzes?.map((userQuiz) => {
-              return <ProfileModule userQuiz={userQuiz} />;
-            })}
+            {appState.quizzes?.length > 0 ? (
+              appState.quizzes.map((userQuiz) => (
+                <ProfileModule key={userQuiz.id} userQuiz={userQuiz} />
+              ))
+            ) : (
+              <Link href="/" style={{ textDecoration: "none" }} >
+              <Text 
+              textAlign={"center"} 
+              color={useColorModeValue("var(--grey)", "var(--midnight)")}
+              >
+                Start learning today!
+              </Text>
+              </Link>
+            )}
           </Flex>
           <Heading
             color={useColorModeValue("var(--grey)", "var(--midnight)")}

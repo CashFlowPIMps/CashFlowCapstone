@@ -19,6 +19,7 @@ import ModuleQuiz from "../Module/ModuleQuiz";
 import QuizPreview from "../Module/QuizPreview";
 import ProfileView from "../ProfileView/ProfileView";
 import ErrorPage from "../ErrorPage/ErrorPage";
+import Loading from "../Loading/Loading";
 
 
 function App() {
@@ -120,36 +121,56 @@ function App() {
             path="/"
             element={
               appState.isAuthenticated ? (
-                <Dashboard dashboard={dashboard} cashBotLink={cashBotLink} />
+                isLoading ? (
+                  <Loading />
+                ) : (
+                  <Dashboard appState={appState} cashBotLink={cashBotLink} />
+                )
+              ) : isLoading ? (
+                <Loading />
               ) : (
                 <Home />
               )
             }
           />
-          <Route path="/about" element={<AboutGrid />} />
+          <Route
+            path="/about"
+            element={
+              appState.isAuthenticated ? (
+                <ErrorPage errorLink={errorLink} />
+              ) : isLoading ? (
+                <Loading />
+              ) : (
+                <AboutGrid />
+              )
+            }
+          />
           <Route
             path="/register"
             element={
               appState.isAuthenticated ? (
                 <ErrorPage errorLink={errorLink} />
+              ) : isLoading ? (
+                <Loading />
               ) : (
                 <Register setAppState={setAppState} />
               )
             }
           />
-          <Route
-            path="/profile"
-            element={
-              !appState.isAuthenticated ? <ErrorPage errorLink={errorLink}/> : (
-                <ProfileView setAppState={setAppState} appState={appState}/>
-              )
-            }
-          />
+
           <Route
             path="/goals"
             element={
-              !appState.isAuthenticated ? <ErrorPage errorLink={errorLink}/> : (
-                <GoalsTracker setAppState={setAppState} appState={appState} cashBotLink={cashBotLink}/>
+              !appState.isAuthenticated ? (
+                <ErrorPage errorLink={errorLink} />
+              ) : isLoading ? (
+                <Loading />
+              ) : (
+                <GoalsTracker
+                  setAppState={setAppState}
+                  appState={appState}
+                  cashBotLink={cashBotLink}
+                />
               )
             }
           />
@@ -158,6 +179,8 @@ function App() {
             element={
               appState.isAuthenticated ? (
                 <ErrorPage errorLink={errorLink} />
+              ) : isLoading ? (
+                <Loading />
               ) : (
                 <Login setAppState={setAppState} />
               )
@@ -167,7 +190,11 @@ function App() {
             path="/registerquiz"
             element={
               appState.isAuthenticated ? (
-                <RegisterQuiz setAppState={setAppState} appState={appState} />
+                isLoading ? (
+                  <Loading />
+                ) : (
+                  <RegisterQuiz setAppState={setAppState} appState={appState} />
+                )
               ) : (
                 <ErrorPage errorLink={errorLink} />
               )
@@ -177,7 +204,11 @@ function App() {
             path="/profile"
             element={
               appState.isAuthenticated ? (
-                <ProfileView setAppState={setAppState} appState={appState} />
+                isLoading ? (
+                  <Loading />
+                ) : (
+                  <ProfileView setAppState={setAppState} appState={appState} />
+                )
               ) : (
                 <ErrorPage errorLink={errorLink} />
               )
@@ -187,11 +218,15 @@ function App() {
             path="/goals"
             element={
               appState.isAuthenticated ? (
-                <GoalsTracker
-                  setAppState={setAppState}
-                  appState={appState}
-                  cashBotLink={cashBotLink}
-                />
+                isLoading ? (
+                  <Loading />
+                ) : (
+                  <GoalsTracker
+                    setAppState={setAppState}
+                    appState={appState}
+                    cashBotLink={cashBotLink}
+                  />
+                )
               ) : (
                 <ErrorPage errorLink={errorLink} />
               )
@@ -201,19 +236,13 @@ function App() {
             path="/goals"
             element={
               appState.isAuthenticated ? (
-                <GoalsTracker setAppState={setAppState} appState={appState} />
+                isLoading ? (
+                  <Loading />
+                ) : (
+                  <GoalsTracker setAppState={setAppState} appState={appState} />
+                )
               ) : (
-                <ErrorPage errorLink={errorLink}/>
-              )
-            }
-          />
-             <Route
-            path="/profile"
-            element={
-              appState.isAuthenticated ? (
-                <ProfileView setAppState={setAppState} appState={appState} />
-              ) : (
-                <ErrorPage errorLink={errorLink}/>
+                <ErrorPage errorLink={errorLink} />
               )
             }
           />
@@ -222,12 +251,16 @@ function App() {
               path={`/${module_name}`}
               element={
                 appState.isAuthenticated ? (
-                  <Module
-                    cashBotLink={cashBotLink}
-                    setInfoPage={setInfoPage}
-                    infoPage={infoPage}
-                    module_name={module_name}
-                  />
+                  isLoading ? (
+                    <Loading />
+                  ) : (
+                    <Module
+                      cashBotLink={cashBotLink}
+                      setInfoPage={setInfoPage}
+                      infoPage={infoPage}
+                      module_name={module_name}
+                    />
+                  )
                 ) : (
                   <ErrorPage errorLink={errorLink} />
                 )
@@ -239,13 +272,17 @@ function App() {
               path={`/${module_name}/quiz`}
               element={
                 appState.isAuthenticated ? (
-                  <ModuleQuiz
-                    setInfoPage={setInfoPage}
-                    infoPage={infoPage}
-                    module_name={module_name}
-                    appState={appState}
-                    setAppState={setAppState}
-                  />
+                  isLoading ? (
+                    <Loading />
+                  ) : (
+                    <ModuleQuiz
+                      setInfoPage={setInfoPage}
+                      infoPage={infoPage}
+                      module_name={module_name}
+                      appState={appState}
+                      setAppState={setAppState}
+                    />
+                  )
                 ) : (
                   <ErrorPage errorLink={errorLink} />
                 )

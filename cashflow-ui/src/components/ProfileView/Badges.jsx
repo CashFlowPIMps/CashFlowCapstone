@@ -1,4 +1,5 @@
 import { Heading, Image, useColorModeValue, useMediaQuery, Flex } from "@chakra-ui/react";
+
 import { useState } from "react";
 
 export default function Badges({ appState }) {
@@ -51,6 +52,7 @@ export default function Badges({ appState }) {
             css={{
                 width: '25vh',
                 height: '25vh',
+
                 '&:hover': {
                   '.flip-inner': {
                     transform: 'rotateY(180deg)',
