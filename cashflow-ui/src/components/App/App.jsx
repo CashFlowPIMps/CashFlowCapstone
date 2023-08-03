@@ -46,6 +46,23 @@ function App() {
   ];
   const [infoPage, setInfoPage] = useState(0);
 
+  const [dashboard, setDashboard] = useState([])
+
+  useEffect(() => {
+    if ((appState.user.status === "Beginner") && (appState.user.total_points < 1200)){
+      setDashboard(["bank-acct", "credit-cards", "debt"]);
+      console.log("beg")
+    }
+    else if (appState.user.status === "Intermediate" || (appState.user.total_points >= 1200)){
+      const updatedUser = { ...appState.user };
+      updatedUser.status = "Intermediate";
+      setAppState({ ...appState, user: updatedUser })
+      setDashboard(["hysavings", "cdsavings", "roth", "401k"]);
+      console.log("int")
+    }
+    
+    }, [appState.user.total_points]);
+
   document.documentElement.style.backgroundColor = bgColor;
 
   useEffect(() => {
@@ -103,7 +120,7 @@ function App() {
             path="/"
             element={
               appState.isAuthenticated ? (
-                <Dashboard appState={appState} cashBotLink={cashBotLink} />
+                <Dashboard dashboard={dashboard} cashBotLink={cashBotLink} />
               ) : (
                 <Home />
               )

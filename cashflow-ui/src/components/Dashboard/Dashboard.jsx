@@ -1,20 +1,13 @@
 "use client";
-
 import { Image, Box,Center, useMediaQuery } from '@chakra-ui/react'
 import { Link } from "react-router-dom";
-import ModuleInfo from '../Module/ModuleInfo';
-import { useState } from 'react';
 import CashBot from "../Cashbot/Cashbot";
+import { useEffect, useState } from 'react';
 
-export default function Dashboard({appState, cashBotLink}) {
+export default function Dashboard({ cashBotLink, dashboard}) {
   // TODO: Separate beginner & intermediate dashboard 
   const [media, heightMedia] = useMediaQuery(["(max-width: 694px)", "(max-height: 840px)"])
-  let dashboard = []
 
-  if (appState.user.status === "Beginner")
-    dashboard = ["bank-acct", "credit-cards", "debt"];
-  else if (appState.user.status === "Intermediate")
-    dashboard = ["hysavings", "cdsavings", "roth", "401k"];
 
   return (
     <>

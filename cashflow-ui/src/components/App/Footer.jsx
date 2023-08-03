@@ -10,7 +10,6 @@ import {
   useMediaQuery,
   VisuallyHidden,
 } from '@chakra-ui/react'
-import { FaInstagram, FaTwitter, FaYoutube, FaLinkedinIn } from 'react-icons/fa'
 import ChromeDinoGame from 'react-chrome-dino';
 
 const Logo = (props) => {
@@ -21,28 +20,6 @@ const Logo = (props) => {
   );
 };
 
-const SocialButton = ({ children, label, href }) => {
-  return (
-    <chakra.button
-      bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
-      rounded={'full'}
-      w={8}
-      h={8}
-      cursor={'pointer'}
-      as={'a'}
-      href={href}
-      display={'inline-flex'}
-      alignItems={'center'}
-      justifyContent={'center'}
-      transition={'background 0.3s ease'}
-      _hover={{
-        bg: useColorModeValue('blackAlpha.200', 'whiteAlpha.200'),
-      }}>
-      <VisuallyHidden>{label}</VisuallyHidden>
-      {children}
-    </chakra.button>
-  );
-};
 export default function Footer() {
   const [media] = useMediaQuery("(max-width: 371px)")
   return (
