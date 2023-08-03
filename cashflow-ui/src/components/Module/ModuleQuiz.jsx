@@ -7,7 +7,8 @@ import {
   RadioGroup,
   Radio,
   Flex,
-  useMediaQuery
+  useMediaQuery,
+  useColorModeValue
 } from "@chakra-ui/react";
 import Slider from "react-slick";
 import moduleQuiz from "../../../../cashflow-api/modules/modulequiz.json";
@@ -139,7 +140,7 @@ function Question({ question, onNext }) {
       >
         <Box 
         fontWeight="bold" 
-        color={"var(--midnight)"} 
+        color={useColorModeValue("var(--grey)", "var(--midnight)")}
         textAlign={'center'}
         margin={'10%'} 
         mt={'-10%'}
@@ -148,7 +149,7 @@ function Question({ question, onNext }) {
           {scenario}
         </Box>
         <RadioGroup onChange={handleAnswerSelect} value={selectedOption}>
-          <Stack spacing={4} color={"var(--midnight)"}>
+          <Stack spacing={4} color={useColorModeValue("var(--grey)", "var(--midnight)")}>
             {options.map((option, index) => (
               <Radio 
               textAlign={'center'}
@@ -200,7 +201,7 @@ export default function ModuleQuiz({ appState, setAppState, module_name }) {
           height={'100vh'}
           borderRadius={"3xl"}
           margin={`${media ? ('10%') : ("10%")}`}
-          backgroundColor={"var(--lightblue)"}
+          bg={useColorModeValue("var(--darkblue)", "var(--lightblue)")}
         >
           
           <Quiz

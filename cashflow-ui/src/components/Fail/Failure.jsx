@@ -31,7 +31,7 @@ export default function Failure(module_name) {
       <Image 
       src='/gary.png' 
       position="absolute"
-      top="-50%"
+      top="-60%"
       ml="25%"
       display={'flex'}
       alignContent={'center'}
@@ -66,7 +66,7 @@ export default function Failure(module_name) {
                 YOU HAVE NOT EARNED ENOUGH POINTS TO COMPLETE THIS MODULE. TRY ASKING CASHBOT FOR MORE HELP!
                 </Text>
         {/* Menu Icon */}
-        <Flex>
+        <Flex >
         <IconButton
           aria-label="menu"
           variant="ghost"
