@@ -32,10 +32,10 @@ export default function Failure(module_name) {
       src='/gary.png' 
       position="absolute"
       top="-50%"
-      ml="30%"
+      ml="25%"
       display={'flex'}
       alignContent={'center'}
-      width={`${media ? ("0%") : ("40%")}`}
+      width={`${media ? ("0%") : ("50%")}`}
       zIndex="1"
       />
       <Flex
@@ -72,6 +72,7 @@ export default function Failure(module_name) {
           variant="ghost"
           transform="translate(0%, -50%)"
           mt={'20%'}
+          ml={'-10%'}
           icon={<Image src="/menu.png" 
           width={'70%'} />}
          onClick={handleExit}

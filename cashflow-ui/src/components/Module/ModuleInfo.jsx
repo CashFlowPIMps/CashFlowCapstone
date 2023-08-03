@@ -69,7 +69,6 @@ export default function ModuleInfo({
             zIndex={"1"}
           />
           <Box
-            // position={"relative"}
             height={"600px"}
             width={"100vh"}
             overflowX={"hidden"}
