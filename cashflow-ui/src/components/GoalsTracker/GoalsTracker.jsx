@@ -99,7 +99,7 @@ export default function GoalsTracker({ setAppState, appState, cashBotLink }) {
           borderRadius={"40px"}
           width={"auto"}
           maxWidth={"120vh"}
-          bg={useColorModeValue("var(--midnight)", "var(--lightblue)")}
+          bg={useColorModeValue("var(--darkblue)", "var(--lightblue)")}
           boxShadow={"dark-lg"}
           p={8}
         >
@@ -152,7 +152,7 @@ export default function GoalsTracker({ setAppState, appState, cashBotLink }) {
               max-height={"40vh"}
               borderRadius={"40px"}
               width={"40vh"}
-              bg={useColorModeValue("var(--midnight)", "var(--lightblue)")}
+              bg={useColorModeValue("var(--darkblue)", "var(--lightblue)")}
               boxShadow={"dark-lg"}
               p={8}
             >
