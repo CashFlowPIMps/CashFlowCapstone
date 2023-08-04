@@ -27,8 +27,8 @@ export default function GoodJob({ onNextClick }) {
             <Flex
             borderRadius={"3xl"}
             width={`${media ? ("130%") : ("100%")}`} 
-            color={"var(--midnight)"}
             position={'absolute'} 
+            color={useColorModeValue("var(--grey)", "var(--midnight)")}
             >
               <Box
             margin={'15%'}
