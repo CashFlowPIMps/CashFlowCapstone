@@ -7,7 +7,6 @@ export default function Home() {
   const elementRef = useRef(null);
   const navigateTo = useNavigate();
   function handleRegister() {
-    console.log("clicked");
     navigateTo("/register");
   }
   function handleClick(e) {

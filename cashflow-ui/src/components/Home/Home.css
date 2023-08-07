@@ -38,7 +38,7 @@
   font-size: 300%;
   padding-top: 2%;
   margin-bottom: 10%;
-  height: 11%;
+  height: fit-content;
   position: relative;
   z-index: 11;
 }

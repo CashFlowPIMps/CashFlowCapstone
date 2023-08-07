@@ -91,8 +91,8 @@ export default function CashBot({ cashBotLink }) {
         return data.json();
       })
       .then((data) => {
-        console.log(data); // when we first make the request to chatGPT, get it in data form
-        console.log(data.choices[0].message.content); // data.choices[0].message.content is how we are getting the actual message.
+        // console.log(data); // when we first make the request to chatGPT, get it in data form
+        // console.log(data.choices[0].message.content); // data.choices[0].message.content is how we are getting the actual message.
         setMessages([
           ...chatMessages,
           {

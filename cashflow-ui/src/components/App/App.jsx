@@ -87,7 +87,6 @@ function App() {
   document.documentElement.style.backgroundColor = bgColor;
 
   useEffect(() => {
-    console.log(bgColor);
     if (bgColor === "var(--midnight)") {
       setCashBotLink("cashbot.png");
       setErrorLink("404light.png");
@@ -96,7 +95,6 @@ function App() {
       setErrorLink("404dark.png");
     }
   }, [bgColor]);
-  console.log(appState);
   useEffect(() => {
     setIsLoading(true);
     const token = localStorage.getItem("CashFlow_Token");
@@ -217,7 +215,7 @@ function App() {
                 isLoading ? (
                   <Loading />
                 ) : (
-                  <RegisterQuiz setAppState={setAppState} appState={appState} />
+                  <RegisterQuiz setAppState={setAppState} appState={appState} errorLink={errorLink} />
                 )
               ) : (
                 <ErrorPage errorLink={errorLink} />
