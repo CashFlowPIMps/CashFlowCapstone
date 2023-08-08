@@ -79,7 +79,7 @@ export default function AboutGrid() {
             <Image
               objectFit={"contain"}
               src="cashflowLogo.png"
-=              mx={cashflowMedia ? "auto" : null}
+              mx={cashflowMedia ? "auto" : null}
               width={cashflowMedia ? "60%" : "30%"}
               height={cashflowMedia ? "60%" : "30%"}
             />
