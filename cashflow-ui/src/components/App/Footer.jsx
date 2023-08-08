@@ -10,12 +10,6 @@ import {
   useMediaQuery,
   VisuallyHidden,
 } from "@chakra-ui/react";
-import {
-  FaInstagram,
-  FaTwitter,
-  FaYoutube,
-  FaLinkedinIn,
-} from "react-icons/fa";
 import ChromeDinoGame from "react-chrome-dino";
 
 const Logo = (props) => {

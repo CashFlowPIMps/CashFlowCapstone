@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import QuizPreview from './QuizPreview';
 import ModuleInfo from './ModuleInfo';
 import modulesInfo from '../../../../cashflow-api/modules/modulesInfo.json';

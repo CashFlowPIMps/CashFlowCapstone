@@ -1,4 +1,4 @@
-import { ChakraProvider, useColorModeValue } from "@chakra-ui/react";
+import { useColorModeValue } from "@chakra-ui/react";
 import AboutGrid from "../AboutGrid/AboutGrid";
 import Login from "../Login/Login";
 import Navbar from "../Navbar/Navbar";

@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, IconButton, Text, Image, useMediaQuery, extendTheme, Flex, useColorModeValue } from "@chakra-ui/react";
-import { ChakraProvider } from "@chakra-ui/provider";
 
 export default function NotQuite({ onNextClick }) {
   const [media] = useMediaQuery("(max-width: 1000px)");  

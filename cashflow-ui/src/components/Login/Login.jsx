@@ -60,7 +60,11 @@ export default function Login({ setAppState }) {
 
           localStorage.setItem("CashFlow_Token", data.token);
           apiClient.setToken(data.token);
-          navigateTo("/");
+          if (data.user.quiztaken === "N") {
+            navigateTo("/registerquiz");
+          } else {
+            navigateTo("/");
+          }
         } else {
           setLoginError("Invalid email and/or password.");
         }
@@ -137,7 +141,8 @@ export default function Login({ setAppState }) {
                   Let’s Keep That Cash Flowin’
                 </Heading>
               </Stack>
-              <Stack spacing={4}>
+              <GoogleOAuthLogin setAppState={setAppState} />
+              <Stack marginTop={"3%"} spacing={4}>
                 <FormControl id="email" isRequired>
                   <Input
                     padding={"7px"}
@@ -254,6 +259,7 @@ export default function Login({ setAppState }) {
           </Stack>
         </Flex>
       </Box>
+      <Loading/>
     </Fragment>
   );
 }

@@ -160,7 +160,8 @@ export default function Register({ appState, setAppState }) {
                   Become a CashFlow Academic!
                 </Heading>
               </Stack>
-              <Stack spacing={4}>
+              <GoogleOAuthReg setAppState={setAppState} setRegisterError={setRegisterError} setIsLoading={setIsLoading}/>
+              <Stack marginTop={"3%"} spacing={4}>
                 <Flex>
                   <FormControl id="first_name" isRequired>
                     <Input

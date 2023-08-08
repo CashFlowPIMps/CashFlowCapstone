@@ -2,10 +2,7 @@
 
 import { Image, Box, Center, useMediaQuery } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import ModuleInfo from "../Module/ModuleInfo";
-import { useState } from "react";
 import CashBot from "../Cashbot/Cashbot";
-import { useEffect } from 'react';
 
 export default function Dashboard({ appState, cashBotLink }) {
   // TODO: Separate beginner & intermediate dashboard
