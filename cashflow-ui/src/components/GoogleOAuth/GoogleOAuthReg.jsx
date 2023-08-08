@@ -30,7 +30,6 @@ export default function GoogleOAuth({ setAppState, setRegisterError, setIsLoadin
           goals: data.goals,
           quizzes: data.quizzes,
         }));
-        
         localStorage.setItem("CashFlow_Token", data.token);
         apiClient.setToken(data.token);
         navigateTo("/registerquiz");

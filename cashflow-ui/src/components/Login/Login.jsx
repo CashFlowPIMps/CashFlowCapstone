@@ -20,11 +20,12 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Puff } from "react-loading-icons";
 import { useNavigate } from "react-router-dom";
 import apiClient from "../../services/apiClient";
-import "./Login.css";
+import GoogleOAuthLogin from "../GoogleOAuth/GoogleOAuthLogin";
 
 export default function Login({ setAppState }) {
   const [media, registerMedia] = useMediaQuery([
-    "(max-width: 535px)", "(max-width: 371px)"
+    "(max-width: 535px)",
+    "(max-width: 371px)",
   ]);
 
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
@@ -85,7 +86,7 @@ export default function Login({ setAppState }) {
   return (
     <Fragment>
       <Box
-        marginBottom={ "5%"}
+        marginBottom={"5%"}
         marginTop={"5%"}
         height={"100vh"}
         color={"white"}
@@ -93,7 +94,7 @@ export default function Login({ setAppState }) {
         <Heading
           textAlign={"center"}
           width={"100vw"}
-          fontSize={media ? ("200%") : ("300%")}
+          fontSize={media ? "200%" : "300%"}
           mx={"auto"}
           color={useColorModeValue("var(--midnight)", "var(--grey)")}
         >
@@ -124,7 +125,7 @@ export default function Login({ setAppState }) {
             <Box
               max-height={"40vh"}
               borderRadius={"40px"}
-              width={`${registerMedia ? ("35vh") : ("43vh")}`}
+              width={`${registerMedia ? "35vh" : "43vh"}`}
               bg={useColorModeValue("var(--midnight)", "var(--lightblue)")}
               boxShadow={"lg"}
               p={8}
@@ -141,7 +142,7 @@ export default function Login({ setAppState }) {
                   Let’s Keep That Cash Flowin’
                 </Heading>
               </Stack>
-              <GoogleOAuthLogin setAppState={setAppState} />
+              <GoogleOAuthLogin setAppState={setAppState} setLoginError={setLoginError} setIsLoading={setIsLoading}/>
               <Stack marginTop={"3%"} spacing={4}>
                 <FormControl id="email" isRequired>
                   <Input
@@ -224,7 +225,7 @@ export default function Login({ setAppState }) {
                     width={"40%"}
                     borderRadius={"20px"}
                     height={"45px"}
-                    fontSize={registerMedia? "large" : "x-large"}
+                    fontSize={registerMedia ? "large" : "x-large"}
                     margin={"0 auto"}
                     bg={"var(--midnight)"}
                     color={"var(--lightblue)"}
@@ -244,7 +245,7 @@ export default function Login({ setAppState }) {
               <Text
                 marginTop={"5px"}
                 textAlign={"center"}
-                fontSize={`${registerMedia ? ("large") : ("x-large")}`}
+                fontSize={`${registerMedia ? "large" : "x-large"}`}
                 color={useColorModeValue("var(--grey)", "var(--midnight)")}
               >
                 New to Us?
@@ -259,7 +260,6 @@ export default function Login({ setAppState }) {
           </Stack>
         </Flex>
       </Box>
-      <Loading/>
     </Fragment>
   );
 }

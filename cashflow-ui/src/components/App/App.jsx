@@ -40,7 +40,6 @@ function App() {
     "401k",
   ];
   const [infoPage, setInfoPage] = useState(0);
-
   const [dashboard, setDashboard] = useState([]);
 
   useEffect(() => {

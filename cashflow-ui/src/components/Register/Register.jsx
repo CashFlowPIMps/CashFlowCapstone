@@ -4,6 +4,7 @@ import apiClient from "../../services/apiClient";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Puff } from "react-loading-icons";
 import { useNavigate } from "react-router-dom";
+import GoogleOAuthReg from "../GoogleOAuth/GoogleOAuthReg";
 import {
   Flex,
   Box,
