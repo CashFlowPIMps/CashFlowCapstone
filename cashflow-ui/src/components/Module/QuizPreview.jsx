@@ -44,9 +44,11 @@ export default function QuizPreview({module_name}) {
       />
       <Flex 
       borderRadius={"3xl"}
-      width={'100%'} 
+      width={'80vw'} 
+      mx={"auto"}
+      height={"85vh"}
       color={useColorModeValue("var(--grey)", "var(--midnight)")}
-      position={'absolute'}
+      position={'relative'}
       bg={useColorModeValue("var(--darkblue)", "var(--lightblue)")}
       justifyContent={'center'}
       >

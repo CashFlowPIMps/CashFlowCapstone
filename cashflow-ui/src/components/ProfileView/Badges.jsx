@@ -1,4 +1,11 @@
-import { Heading, Image, useColorModeValue, useMediaQuery, Flex } from "@chakra-ui/react";
+import {
+  Heading,
+  Image,
+  useColorModeValue,
+  useMediaQuery,
+  Text,
+  Flex,
+} from "@chakra-ui/react";
 
 import { useState } from "react";
 
@@ -42,60 +49,85 @@ export default function Badges({ appState }) {
       >
         Badges Earned
       </Heading>
+      {appState.user.total_points < 500 ? (
+        <Text
+          textAlign={"center"}
+          color={useColorModeValue("var(--grey)", "var(--midnight)")}
+        >
+          Nothing here yet.
+        </Text>
+      ) : (
+        <Flex
+          justifyContent={"center"}
+          flexWrap={`${media ? "wrap" : "nowrap"}`}
+        >
+          {earnedBadges.map((badge) => {
+            return (
+              <Flex
+                className="flip"
+                css={{
+                  width: "30vh",
+                  height: "30vh",
 
-      <Flex justifyContent={'center'} flexWrap={`${media ? ('wrap') : ('nowrap')}`}>
-      {earnedBadges.map((badge) => {
-        return (
-            <Flex className="flip"  
-            css={{
-                width:'30vh',
-                height: '30vh',
-
-                '&:hover': {
-                  '.flip-inner': {
-                    transform: 'rotateY(180deg)',
+                  "&:hover": {
+                    ".flip-inner": {
+                      transform: "rotateY(180deg)",
+                    },
                   },
-                },
-                '.flip-inner': {
-                  transformStyle: 'preserve-3d',
-                  transition: 'transform .8s ease',
-                  height: '100%',
-                  width: '100%',
-                  '.front, .back': {
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    backfaceVisibility: 'hidden',
-                    borderRadius: '50%',
-                    overflow: 'hidden',
+                  ".flip-inner": {
+                    transformStyle: "preserve-3d",
+                    transition: "transform .8s ease",
+                    height: "100%",
+                    width: "100%",
+                    ".front, .back": {
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                      backfaceVisibility: "hidden",
+                      borderRadius: "50%",
+                      overflow: "hidden",
+                    },
+                    ".front": {
+                      transform: "translateZ(1px)",
+                    },
+                    ".back": {
+                      transform: "rotateY(180deg)",
+                    },
+                    ".thumbnail": {
+                      width: "100%",
+                    },
                   },
-                  '.front': {
-                    transform: 'translateZ(1px)',
-                  },
-                  '.back': {
-                    transform: 'rotateY(180deg)',
-                  },
-                  '.thumbnail': {
-                    width: '100%',
-                  },
-                },
-              }}>
-            <Flex className="flip-inner">
-                <Flex className="front">
-                <Image width='30vh' objectFit={'cover'} height='30vh' key={badge} src={`${badge}.png`} alt={badge} />
+                }}
+              >
+                <Flex className="flip-inner">
+                  <Flex className="front">
+                    <Image
+                      width="30vh"
+                      objectFit={"cover"}
+                      height="30vh"
+                      key={badge}
+                      src={`${badge}.png`}
+                      alt={badge}
+                    />
+                  </Flex>
+                  <Flex className="back">
+                    <Image
+                      width="30vh"
+                      objectFit={"cover"}
+                      height="30vh"
+                      key={badge}
+                      src={`${badge}2.png`}
+                      alt={badge}
+                    />
+                  </Flex>
                 </Flex>
-                <Flex className="back">
-                <Image width='30vh' objectFit={'cover'} height='30vh' key={badge} src={`${badge}2.png`} alt={badge} />
-                </Flex>
-            </Flex>
+              </Flex>
+            );
+          })}
         </Flex>
-        );
-      })}
-      </Flex>
+      )}
     </>
   );
 }
-
-
