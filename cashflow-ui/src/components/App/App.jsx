@@ -40,9 +40,9 @@ function App() {
     "401k",
   ];
   const [infoPage, setInfoPage] = useState(0);
-
   const [dashboard, setDashboard] = useState([]);
 
+  console.log(appState)
   useEffect(() => {
     async function imageStat() {
       try {
@@ -74,7 +74,8 @@ function App() {
       setDashboard(["bank-acct", "credit-cards", "debt"]);
     } else if (
       appState.user.status === "Intermediate" ||
-      (appState.user.total_points >= 1200 && appState.user.status === "Beginner")
+      (appState.user.total_points >= 1200 &&
+        appState.user.status === "Beginner")
     ) {
       const data = imageStat();
       const updatedUser = { ...appState.user };
@@ -215,7 +216,11 @@ function App() {
                 isLoading ? (
                   <Loading />
                 ) : (
-                  <RegisterQuiz setAppState={setAppState} appState={appState} errorLink={errorLink} />
+                  <RegisterQuiz
+                    setAppState={setAppState}
+                    appState={appState}
+                    errorLink={errorLink}
+                  />
                 )
               ) : (
                 <ErrorPage errorLink={errorLink} />

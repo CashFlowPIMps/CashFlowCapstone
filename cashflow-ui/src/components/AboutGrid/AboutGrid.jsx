@@ -27,6 +27,7 @@ export default function AboutGrid() {
       animatedImage: "/marleyA.png",
       isUnlocked: false,
       linkedIn: "https://www.linkedin.com/in/marleyburrows/",
+      github: "https://github.com/marleybisme"
     },
     {
       name: "Oluwapelumi Tayo-Orisadare",
@@ -37,6 +38,7 @@ export default function AboutGrid() {
       animatedImage: "/pelumiA.png",
       isUnlocked: false,
       linkedIn: "https://www.linkedin.com/in/oluwapelumi-tayo-orisadare/",
+      github: "https://github.com/PelumiTayo"
     },
     {
       name: "Iden Amoako",
@@ -47,6 +49,7 @@ export default function AboutGrid() {
       animatedImage: "/idenA.png",
       isUnlocked: false,
       linkedIn: "https://www.linkedin.com/in/iden-amoako-37695724b/",
+      github: "https://github.com/iden-a"
     },
   ];
 
@@ -112,6 +115,7 @@ export default function AboutGrid() {
                 animatedImage={creator.animatedImage}
                 isUnlocked={creator.isUnlocked}
                 linkedIn={creator.linkedIn}
+                github={creator.github}
               />
               <Spacer />
             </>
