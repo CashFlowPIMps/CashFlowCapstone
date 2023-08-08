@@ -287,7 +287,7 @@ export default function RegisterQuiz({ setAppState, appState, errorLink }) {
                   color={useColorModeValue("var(--grey)", "var(--midnight)")}
                 >
                   <Radio
-                    border={"1px solid white"}
+                    borderColor={useColorModeValue("white", "black")}
                     value={"No debt"}
                     onChange={(e) =>
                       setQuizInfo((prevState) => ({
@@ -300,7 +300,7 @@ export default function RegisterQuiz({ setAppState, appState, errorLink }) {
                     No debt{" "}
                   </Radio>
                   <Radio
-                    border={"1px solid white"}
+                    borderColor={useColorModeValue("white", "black")}
                     value={"Minimal debt"}
                     onChange={(e) =>
                       setQuizInfo((prevState) => ({
@@ -314,7 +314,7 @@ export default function RegisterQuiz({ setAppState, appState, errorLink }) {
                     balance){" "}
                   </Radio>
                   <Radio
-                    border={"1px solid white"}
+                    borderColor={useColorModeValue("white", "black")}
                     value={"Moderate debt"}
                     onChange={(e) =>
                       setQuizInfo((prevState) => ({
@@ -328,7 +328,7 @@ export default function RegisterQuiz({ setAppState, appState, errorLink }) {
                     card balance){" "}
                   </Radio>
                   <Radio
-                    border={"1px solid white"}
+                    borderColor={useColorModeValue("white", "black")}
                     value={"High debt"}
                     onChange={(e) =>
                       setQuizInfo((prevState) => ({
@@ -374,7 +374,7 @@ export default function RegisterQuiz({ setAppState, appState, errorLink }) {
                   color={useColorModeValue("var(--grey)", "var(--midnight)")}
                 >
                   <Radio
-                    border={"1px solid white"}
+                    borderColor={useColorModeValue("white", "black")}
                     value={"Saving for a specific purchase or expense"}
                     onChange={(e) =>
                       setQuizInfo((prevState) => ({
@@ -387,7 +387,7 @@ export default function RegisterQuiz({ setAppState, appState, errorLink }) {
                     Saving for a specific purchase or expense{" "}
                   </Radio>
                   <Radio
-                    border={"1px solid white"}
+                    borderColor={useColorModeValue("white", "black")}
                     value={"Building an emergency fund"}
                     onChange={(e) =>
                       setQuizInfo((prevState) => ({
@@ -400,7 +400,7 @@ export default function RegisterQuiz({ setAppState, appState, errorLink }) {
                     Building an emergency fund{" "}
                   </Radio>
                   <Radio
-                    border={"1px solid white"}
+                    borderColor={useColorModeValue("white", "black")}
                     value={"Paying off debt"}
                     onChange={(e) =>
                       setQuizInfo((prevState) => ({
@@ -413,7 +413,7 @@ export default function RegisterQuiz({ setAppState, appState, errorLink }) {
                     Paying off debt (e.g., credit cards, loans){" "}
                   </Radio>
                   <Radio
-                    border={"1px solid white"}
+                    borderColor={useColorModeValue("white", "black")}
                     value={"Investing for retirement"}
                     onChange={(e) =>
                       setQuizInfo((prevState) => ({
@@ -426,7 +426,7 @@ export default function RegisterQuiz({ setAppState, appState, errorLink }) {
                     Investing for retirement{" "}
                   </Radio>
                   <Radio
-                    border={"1px solid white"}
+                    borderColor={useColorModeValue("white", "black")}
                     value={"Saving for education"}
                     onChange={(e) =>
                       setQuizInfo((prevState) => ({

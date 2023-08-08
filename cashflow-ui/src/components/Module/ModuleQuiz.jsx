@@ -141,38 +141,33 @@ function Question({ question, onNext }) {
         margin={"10%"}
         mt={"-10%"}
         // position={'absolute'}
-        fontSize={{ base: "15px", md: "35px", lg: "45px", xl: "45px" }}
-      >
-        {scenario}
-      </Box>
-      <RadioGroup onChange={handleAnswerSelect} value={selectedOption}>
-        <Stack
-          spacing={4}
-          color={useColorModeValue("var(--grey)", "var(--midnight)")}
-        >
-          {options.map((option, index) => (
-            <Radio
-              textAlign={"center"}
-              fontSize={{ base: "20px", md: "35px", lg: "45px", xl: "60px" }}
-              key={index}
-              value={option}
-            >
-              {option}
-            </Radio>
-          ))}
-        </Stack>
-      </RadioGroup>
-      <IconButton
-        aria-label="right-arrow"
-        variant="ghost"
-        position="relative"
-        transform={"translate(0%, -50%)"}
-        zIndex={2}
-        mt={20}
-        icon={<Image src="/next.png" maxH={"120px"} />}
-        onClick={handleSubmit}
-      />
-    </Flex>
+
+        fontSize={{ base: "15px", md: "35px", lg: "45px", xl: "45px" }}>
+          {scenario}
+        </Box>
+        <RadioGroup onChange={handleAnswerSelect} value={selectedOption} >
+          <Stack spacing={4} color={useColorModeValue("var(--grey)", "var(--midnight)")} >
+            {options.map((option, index) => (
+              <Radio borderColor={useColorModeValue("white", "black")}
+              textAlign={'center'}
+              fontSize={{ base: "25px", md: "35px", lg: "45px", xl: "60px" }}      
+              key={index} value={option}>
+                {option}
+              </Radio>
+            ))}
+          </Stack>
+        </RadioGroup>
+        <IconButton
+          aria-label="right-arrow"
+          variant="ghost"
+          position="relative"
+          transform={"translate(0%, -50%)"}
+          zIndex={2}
+          mt={20}
+          icon={<Image src="/next.png" maxH={"120px"} />}
+          onClick={handleSubmit}
+        />
+      </Flex>
   );
 }
 
