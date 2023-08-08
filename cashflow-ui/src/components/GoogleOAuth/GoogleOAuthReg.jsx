@@ -1,13 +1,14 @@
-import React, { Fragment, useState } from "react";
+import React from "react";
 import { useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import apiClient from "../../services/apiClient";
 import { useNavigate } from "react-router-dom";
 
-export default function GoogleOAuth({ setAppState }) {
+export default function GoogleOAuth({ setAppState, setRegisterError, setIsLoading }) {
   const navigateTo = useNavigate();
   async function register(email, username, first_name, last_name, password) {
     try {
+      setIsLoading(true);
       const { data, error, message } = await apiClient.register({
         email: email,
         username: username,
@@ -17,9 +18,10 @@ export default function GoogleOAuth({ setAppState }) {
         confirmPassword: password,
       });
       if (error) {
+        setRegisterError("Something went wrong with registration.");
+        setIsLoading(false);
         return;
       }
-
       if (data) {
         setAppState((prevState) => ({
           ...prevState,
@@ -32,16 +34,17 @@ export default function GoogleOAuth({ setAppState }) {
         apiClient.setToken(data.token);
         navigateTo("/registerquiz");
       } else {
+        setRegisterError("Something went wrong with registration.");
       }
     } catch (err) {
+      setRegisterError("Something went wrong with registration.");
       console.log(err);
     }
+    setIsLoading(false);
   }
 
   function handleCallbackResponse(response) {
-    console.log(response.credential);
     const user = jwt_decode(response.credential);
-    console.log(user);
     if (user) {
       register(
         user.email,
@@ -69,7 +72,6 @@ export default function GoogleOAuth({ setAppState }) {
     <div
       style={{
         margin: "0 auto",
-        backgroundColor: "red",
         width: "fit-content",
         textAlign: "center",
       }}

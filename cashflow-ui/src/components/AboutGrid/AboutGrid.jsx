@@ -4,7 +4,6 @@ import {
   Spacer,
   Center,
   Image,
-  Heading,
   useMediaQuery,
   Box,
   Text,
@@ -27,8 +26,7 @@ export default function AboutGrid() {
       animatedImage: "/marleyA.png",
       isUnlocked: false,
       linkedIn: "https://www.linkedin.com/in/marleyburrows/",
-      github: "https://github.com/marleybisme"
-
+      github: "https://github.com/marleybisme",
     },
     {
       name: "Oluwapelumi Tayo-Orisadare",
@@ -39,54 +37,60 @@ export default function AboutGrid() {
       animatedImage: "/pelumiA.png",
       isUnlocked: false,
       linkedIn: "https://www.linkedin.com/in/oluwapelumi-tayo-orisadare/",
-      github: "https://github.com/PelumiTayo"
-
+      github: "https://github.com/PelumiTayo",
     },
     {
       name: "Iden Amoako",
       school: "Baruch College",
       aspiration: "Aspiring Software Engineer, Product Manager",
-      bio: "Coming in from New York City, Iden enjoys all things health and fitness, photography, and fashion!",
+      bio: "Coming in from The Bronx, New York, Iden enjoys all things health and fitness, photography, and fashion!",
       image: "/iden.jpg",
       animatedImage: "/idenA.png",
       isUnlocked: false,
       linkedIn: "https://www.linkedin.com/in/iden-amoako-37695724b/",
-      github: "https://github.com/iden-a"
+      github: "https://github.com/iden-a",
     },
   ];
 
   return (
     <>
       <Box
-        paddingBottom={"20px"}
+        padding={"15px"}
         borderBottom={"1px solid white"}
         height={"fit-content"}
-        maxHeight={"90vh"}
+        maxHeight={"100vh"}
       >
         <Image
           marginTop={"2%"}
           mx={"auto"}
-          objectFit={cashflowMedia ? "contain" : "cover"}
+          objectFit={"cover"}
           src="whatiscashflow.png"
-          height={"15vh"}
-          width={"80%"}
+          height={"20vh"}
+          width={media ? "100%" : "80%"}
         />
 
-        <Flex flexDirection={"row"} justifyContent={"space-evenly"}>
+        <Flex
+          textAlign={"center"}
+          flexDirection={cashflowMedia ? "column" : "row"}
+          mx={"auto"}
+          justifyContent={"space-evenly"}
+        >
           <>
             <Image
               objectFit={"contain"}
               src="cashflowLogo.png"
-              width={"30%"}
-              height={"30%"}
+=              mx={cashflowMedia ? "auto" : null}
+              width={cashflowMedia ? "60%" : "30%"}
+              height={cashflowMedia ? "60%" : "30%"}
             />
           </>
           <>
             <Text
-              fontSize={media ? "2vw" : "1.6vw"}
+              mx={cashflowMedia ? "auto" : null}
+              fontSize={cashflowMedia ? "4vw" : "1.6vw"}
               fontWeight={media ? "bold" : ""}
               paddingTop={"4%"}
-              width={"40%"}
+              width={cashflowMedia ? "100%" : "40%"}
               textAlign={"center"}
               fontFamily={"monospace"}
             >
@@ -118,7 +122,6 @@ export default function AboutGrid() {
                 isUnlocked={creator.isUnlocked}
                 linkedIn={creator.linkedIn}
                 github={creator.github}
-
               />
               <Spacer />
             </>

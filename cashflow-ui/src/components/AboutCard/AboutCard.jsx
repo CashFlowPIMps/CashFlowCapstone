@@ -12,7 +12,7 @@ import {
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { FaGithub, FaTwitter, FaYoutube, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 export default function AboutCard({
   name,

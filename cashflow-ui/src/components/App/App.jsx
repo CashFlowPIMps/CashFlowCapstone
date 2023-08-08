@@ -1,4 +1,4 @@
-import { ChakraProvider, useColorModeValue } from "@chakra-ui/react";
+import { useColorModeValue } from "@chakra-ui/react";
 import AboutGrid from "../AboutGrid/AboutGrid";
 import Login from "../Login/Login";
 import Navbar from "../Navbar/Navbar";
@@ -42,7 +42,6 @@ function App() {
   const [infoPage, setInfoPage] = useState(0);
   const [dashboard, setDashboard] = useState([]);
 
-
   useEffect(() => {
     async function imageStat() {
       try {
@@ -74,9 +73,7 @@ function App() {
       setDashboard(["bank-acct", "credit-cards", "debt"]);
     } else if (
       appState.user.status === "Intermediate" ||
-      (appState.user.total_points >= 1200 &&
-        appState.user.status === "Beginner")
-
+      (appState.user.total_points >= 1200 && appState.user.status === "Beginner")
     ) {
       const data = imageStat();
       const updatedUser = { ...appState.user };
@@ -217,11 +214,7 @@ function App() {
                 isLoading ? (
                   <Loading />
                 ) : (
-                  <RegisterQuiz
-                    setAppState={setAppState}
-                    appState={appState}
-                    errorLink={errorLink}
-                  />
+                  <RegisterQuiz setAppState={setAppState} appState={appState} errorLink={errorLink} />
                 )
               ) : (
                 <ErrorPage errorLink={errorLink} />

@@ -21,7 +21,6 @@ import { Puff } from "react-loading-icons";
 import { useNavigate } from "react-router-dom";
 import apiClient from "../../services/apiClient";
 import GoogleOAuthLogin from "../GoogleOAuth/GoogleOAuthLogin";
-import "./Login.css";
 
 export default function Login({ setAppState }) {
   const [media, registerMedia] = useMediaQuery([
@@ -62,7 +61,6 @@ export default function Login({ setAppState }) {
 
           localStorage.setItem("CashFlow_Token", data.token);
           apiClient.setToken(data.token);
-          console.log(data)
           if (data.user.quiztaken === "N") {
             navigateTo("/registerquiz");
           } else {
@@ -144,7 +142,7 @@ export default function Login({ setAppState }) {
                   Let’s Keep That Cash Flowin’
                 </Heading>
               </Stack>
-              <GoogleOAuthLogin setAppState={setAppState} />
+              <GoogleOAuthLogin setAppState={setAppState} setLoginError={setLoginError} setIsLoading={setIsLoading}/>
               <Stack marginTop={"3%"} spacing={4}>
                 <FormControl id="email" isRequired>
                   <Input
