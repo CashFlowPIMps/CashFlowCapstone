@@ -8,7 +8,7 @@ import {
   Radio,
   Flex,
   useMediaQuery,
-  useColorModeValue
+  useColorModeValue,
 } from "@chakra-ui/react";
 import Slider from "react-slick";
 import moduleQuiz from "../../../../cashflow-api/modules/modulequiz.json";
@@ -39,7 +39,7 @@ function Quiz({
   setQuizInfo,
   setAppState,
   appState,
-  quizInfo
+  quizInfo,
 }) {
   const quiz_data = moduleQuiz[module_name] || {};
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -56,15 +56,13 @@ function Quiz({
       setShowNotQuite(true); // Show the NotQuite component
       setCurrentIndex((prevIndex) => prevIndex + 1); // Move to the next question
     }
-    
   };
-
 
   const handleNextClick = () => {
     if (currentIndex === quiz_data.questions.length) {
       // If it's the last question, show the quiz result after clicking "Next"
-      setShowGoodJob(false)
-      setShowNotQuite(false)
+      setShowGoodJob(false);
+      setShowNotQuite(false);
       setShowQuizResult(true);
     } else {
       if (showGoodJob && !showNotQuite) {
@@ -78,38 +76,37 @@ function Quiz({
     }
   };
 
-  const quizLength = quiz_data.questions.length
+  const quizLength = quiz_data.questions.length;
 
   return (
     <>
-    <Slider {...settings} ref={(slider) => setSlider(slider)}>
-      {quiz_data.questions?.map((question, index) => (
-        <ModuleAssist
-          Question={Question}
-          GoodJob={GoodJob}
-          NotQuite={NotQuite}
-          showGoodJob={showGoodJob}
-          showNotQuite={showNotQuite}
-          question={question}
-          index={index}
-          currentIndex={currentIndex}
-          handleNext={handleNext}
-          handleNextClick={handleNextClick}
-          Complete={Complete}
-          Failure={Failure}
-          setQuizInfo={setQuizInfo} 
-          setAppState={setAppState} 
-          module_name={module_name} 
-          appState={appState} 
-          score={score} 
-          quizInfo={quizInfo}
-          quizLength={quizLength}
-        />
-      ))}
+      <Slider {...settings} ref={(slider) => setSlider(slider)}>
+        {quiz_data.questions?.map((question, index) => (
+          <ModuleAssist
+            Question={Question}
+            GoodJob={GoodJob}
+            NotQuite={NotQuite}
+            showGoodJob={showGoodJob}
+            showNotQuite={showNotQuite}
+            question={question}
+            index={index}
+            currentIndex={currentIndex}
+            handleNext={handleNext}
+            handleNextClick={handleNextClick}
+            Complete={Complete}
+            Failure={Failure}
+            setQuizInfo={setQuizInfo}
+            setAppState={setAppState}
+            module_name={module_name}
+            appState={appState}
+            score={score}
+            quizInfo={quizInfo}
+            quizLength={quizLength}
+          />
+        ))}
       </Slider>
-      </>
+    </>
   );
-
 }
 
 function Question({ question, onNext }) {
@@ -130,20 +127,21 @@ function Question({ question, onNext }) {
     }
   };
   return (
-      <Flex
-        justifyContent={"center"}
-        flexDirection={"column"}
-        alignItems={"center"}
-        position={'absolute'}
-        pt={'10%'}
-      >
-        <Box 
-        fontWeight="bold" 
+    <Flex
+      justifyContent={"center"}
+      flexDirection={"column"}
+      alignItems={"center"}
+      position={"absolute"}
+      pt={"10%"}
+    >
+      <Box
+        fontWeight="bold"
         color={useColorModeValue("var(--grey)", "var(--midnight)")}
-        textAlign={'center'}
-        margin={'10%'} 
-        mt={'-10%'}
+        textAlign={"center"}
+        margin={"10%"}
+        mt={"-10%"}
         // position={'absolute'}
+
         fontSize={{ base: "15px", md: "35px", lg: "45px", xl: "45px" }}>
           {scenario}
         </Box>
@@ -182,43 +180,40 @@ export default function ModuleQuiz({ appState, setAppState, module_name }) {
   const [score, setScore] = useState(0);
   const [media] = useMediaQuery("(max-width: 768px)");
   const [slider, setSlider] = useState(null);
-  
+
   return (
     <>
-      <Flex
-        width={`${media ? ("50%") : ("50%")}`}
-        justifyContent="center"
-        display="contents"
-        alignItems="center"
-        position="relative"
-        overflow="scroll" 
-      >
-
-        <Box
-          position={"relative"}
-          flexDirection={`${media ? ("column") : ("row")}`} 
-          height={'100vh'}
-          borderRadius={"3xl"}
-          margin={`${media ? ('10%') : ("10%")}`}
-          bg={useColorModeValue("var(--darkblue)", "var(--lightblue)")}
+      <Box overflowX={"hidden"}>
+        <Flex
+          width={`${media ? "50%" : "50%"}`}
+          justifyContent="center"
+          display="contents"
+          alignItems="center"
+          position="relative"
+          overflow="scroll"
         >
-          
-          <Quiz
-            module_name={module_name}
-            slider={slider}
-            setAppState={setAppState}
-            setSlider={setSlider}
-            score={score}
-            setScore={setScore}
-            setQuizInfo={setQuizInfo}
-            appState={appState}
-            quizInfo={quizInfo}
-          />
-        </Box>
-
-
-        
-      </Flex>
+          <Box
+            position={"relative"}
+            flexDirection={`${media ? "column" : "row"}`}
+            height={"85vh"}
+            borderRadius={"3xl"}
+            margin={`${media ? "10%" : "10%"}`}
+            bg={useColorModeValue("var(--darkblue)", "var(--lightblue)")}
+          >
+            <Quiz
+              module_name={module_name}
+              slider={slider}
+              setAppState={setAppState}
+              setSlider={setSlider}
+              score={score}
+              setScore={setScore}
+              setQuizInfo={setQuizInfo}
+              appState={appState}
+              quizInfo={quizInfo}
+            />
+          </Box>
+        </Flex>
+      </Box>
     </>
   );
 }

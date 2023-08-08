@@ -144,7 +144,7 @@ export default function ModuleInfo({
                 </Box>
               ))}
             </Slider>
-            <Flex zIndex={100} bg='yellow'>
+            <Flex zIndex={100} >
             {/* Left Icon */}
             <IconButton
               aria-label="left-arrow"

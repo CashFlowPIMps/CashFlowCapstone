@@ -15,6 +15,10 @@ import {
   Radio,
   Flex,
   InputGroup,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
   InputLeftAddon,
   Heading,
   Image,
@@ -29,7 +33,6 @@ import apiClient from "../../services/apiClient";
 export default function RegisterQuiz({ setAppState, appState, errorLink }) {
   const [quizInfo, setQuizInfo] = useState({
     imageUrl: "",
-    scale: 1,
     levelOfDebt: "",
     finanGoal: "",
   });
@@ -40,13 +43,8 @@ export default function RegisterQuiz({ setAppState, appState, errorLink }) {
     "(max-width: 1351px)",
   ]);
   const navigateTo = useNavigate();
-
-  const formChange = (event) => {
-    setQuizInfo((prevState) => ({
-      ...prevState,
-      scale: event.target.value,
-    }));
-  };
+  const [value, setValue] = useState(1);
+  const handleChange = (value) => setValue(value);
 
   function calculateFinancialLiteracyLevel(
     stabilityRating,
@@ -131,8 +129,8 @@ export default function RegisterQuiz({ setAppState, appState, errorLink }) {
   const handleStartLearning = async (e) => {
     e.preventDefault();
     if (
-      quizInfo.scale <= 10 &&
-      quizInfo.scale >= 1 &&
+      value <= 10 &&
+      value >= 1 &&
       quizInfo.levelOfDebt &&
       quizInfo.finanGoal
     ) {
@@ -141,7 +139,7 @@ export default function RegisterQuiz({ setAppState, appState, errorLink }) {
           id: appState.user.id,
           image_url: quizInfo.imageUrl,
           status: calculateFinancialLiteracyLevel(
-            quizInfo.scale,
+            value,
             quizInfo.levelOfDebt,
             quizInfo.finanGoal
           ),
@@ -213,27 +211,53 @@ export default function RegisterQuiz({ setAppState, appState, errorLink }) {
                 1. On a scale of 1-10, how would you rate your current financial
                 stability? <span style={{ color: "red" }}>*</span>
               </FormLabel>
-              <NumberInput
+              <Flex
                 color={"black"}
                 position={"relative"}
-                defaultValue={0}
-                min={1}
-                max={10}
-                value={quizInfo.scale}
-                onChange={(value) => formChange({ target: { value } })}
                 top={"90px"}
-                width={"50%"}
+                width={media ? "90%" : "70%"}
                 marginLeft={media ? "25px" : "50px"}
                 borderRadius={"20px"}
+                border={"1px solid var(--midnight)"}
+                paddingLeft={"3%"}
+                paddingRight={"3%"}
                 marginBottom={inputMedia ? "40px" : null}
                 bg={"var(--grey)"}
               >
-                <NumberInputField />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
+                <NumberInput
+                  maxW="100px"
+                  min={1}
+                  max={10}
+                  mr="2rem"
+                  value={value}
+                  onChange={handleChange}
+                >
+                  <NumberInputField />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper
+                      border={"1px solid var(--midnight)"}
+                      color={"black"}
+                    />
+                    <NumberDecrementStepper
+                      border={"1px solid var(--midnight)"}
+                      color={"black"}
+                    />
+                  </NumberInputStepper>
+                </NumberInput>
+                <Slider
+                  min={1}
+                  max={10}
+                  flex="1"
+                  focusThumbOnChange={false}
+                  value={value}
+                  onChange={handleChange}
+                >
+                  <SliderTrack>
+                    <SliderFilledTrack />
+                  </SliderTrack>
+                  <SliderThumb fontSize="sm" boxSize="32px" children={value} />
+                </Slider>
+              </Flex>
             </FormControl>
             <FormControl
               as="fieldset"
