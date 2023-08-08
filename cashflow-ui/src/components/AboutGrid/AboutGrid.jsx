@@ -28,6 +28,7 @@ export default function AboutGrid() {
       isUnlocked: false,
       linkedIn: "https://www.linkedin.com/in/marleyburrows/",
       github: "https://github.com/marleybisme"
+
     },
     {
       name: "Oluwapelumi Tayo-Orisadare",
@@ -39,6 +40,7 @@ export default function AboutGrid() {
       isUnlocked: false,
       linkedIn: "https://www.linkedin.com/in/oluwapelumi-tayo-orisadare/",
       github: "https://github.com/PelumiTayo"
+
     },
     {
       name: "Iden Amoako",
@@ -116,6 +118,7 @@ export default function AboutGrid() {
                 isUnlocked={creator.isUnlocked}
                 linkedIn={creator.linkedIn}
                 github={creator.github}
+
               />
               <Spacer />
             </>

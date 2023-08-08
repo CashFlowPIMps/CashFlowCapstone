@@ -26,7 +26,7 @@ import {
 import ErrorPage from "../ErrorPage/ErrorPage";
 import apiClient from "../../services/apiClient";
 
-export default function RegisterQuiz({ setAppState, appState, errorLink }) {
+export default function RegisterQuiz({ setAppState, appState, errorLink}) {
   const [quizInfo, setQuizInfo] = useState({
     imageUrl: "",
     scale: 1,
