@@ -94,7 +94,7 @@ export default function AboutGrid() {
               textAlign={"center"}
               fontFamily={"monospace"}
             >
-              CashFlow Academy is a comprehensive financial literacy site
+              CashFlow Academy is a comprehensive financial literacy application
               designed to empower individuals of all levels of expertise to
               master and increase their cash flow management skills. With
               personalized learning paths, interactive quizzes, and our AI
