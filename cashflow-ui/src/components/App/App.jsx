@@ -73,7 +73,7 @@ function App() {
       setDashboard(["bank-acct", "credit-cards", "debt"]);
     } else if (
       appState.user.status === "Intermediate" ||
-      (appState.user.total_points >= 1200 && appState.user.status === "Beginner")
+      (appState.user.total_points >= 1200)
     ) {
       const data = imageStat();
       const updatedUser = { ...appState.user };
@@ -157,9 +157,7 @@ function App() {
           <Route
             path="/about"
             element={
-              appState.isAuthenticated ? (
-                <ErrorPage errorLink={errorLink} />
-              ) : isLoading ? (
+              isLoading ? (
                 <Loading />
               ) : (
                 <AboutGrid />
@@ -169,9 +167,7 @@ function App() {
           <Route
             path="/register"
             element={
-              appState.isAuthenticated ? (
-                <ErrorPage errorLink={errorLink} />
-              ) : isLoading ? (
+             isLoading ? (
                 <Loading />
               ) : (
                 <Register setAppState={setAppState} />
@@ -182,9 +178,7 @@ function App() {
           <Route
             path="/goals"
             element={
-              !appState.isAuthenticated ? (
-                <ErrorPage errorLink={errorLink} />
-              ) : isLoading ? (
+               isLoading ? (
                 <Loading />
               ) : (
                 <GoalsTracker
@@ -198,9 +192,7 @@ function App() {
           <Route
             path="/login"
             element={
-              appState.isAuthenticated ? (
-                <ErrorPage errorLink={errorLink} />
-              ) : isLoading ? (
+              isLoading ? (
                 <Loading />
               ) : (
                 <Login setAppState={setAppState} />
@@ -210,35 +202,26 @@ function App() {
           <Route
             path="/registerquiz"
             element={
-              appState.isAuthenticated ? (
                 isLoading ? (
                   <Loading />
                 ) : (
                   <RegisterQuiz setAppState={setAppState} appState={appState} errorLink={errorLink} />
                 )
-              ) : (
-                <ErrorPage errorLink={errorLink} />
-              )
             }
           />
           <Route
             path="/profile"
             element={
-              appState.isAuthenticated ? (
                 isLoading ? (
                   <Loading />
                 ) : (
                   <ProfileView setAppState={setAppState} appState={appState} />
                 )
-              ) : (
-                <ErrorPage errorLink={errorLink} />
-              )
             }
           />
           <Route
             path="/goals"
             element={
-              appState.isAuthenticated ? (
                 isLoading ? (
                   <Loading />
                 ) : (
@@ -248,30 +231,22 @@ function App() {
                     cashBotLink={cashBotLink}
                   />
                 )
-              ) : (
-                <ErrorPage errorLink={errorLink} />
-              )
             }
           />
           <Route
             path="/goals"
             element={
-              appState.isAuthenticated ? (
                 isLoading ? (
                   <Loading />
                 ) : (
                   <GoalsTracker setAppState={setAppState} appState={appState} />
                 )
-              ) : (
-                <ErrorPage errorLink={errorLink} />
-              )
             }
           />
           {module_pages.map((module_name) => (
             <Route
               path={`/${module_name}`}
               element={
-                appState.isAuthenticated ? (
                   isLoading ? (
                     <Loading />
                   ) : (
@@ -282,9 +257,6 @@ function App() {
                       module_name={module_name}
                     />
                   )
-                ) : (
-                  <ErrorPage errorLink={errorLink} />
-                )
               }
             />
           ))}
@@ -292,7 +264,6 @@ function App() {
             <Route
               path={`/${module_name}/quiz`}
               element={
-                appState.isAuthenticated ? (
                   isLoading ? (
                     <Loading />
                   ) : (
@@ -304,9 +275,6 @@ function App() {
                       setAppState={setAppState}
                     />
                   )
-                ) : (
-                  <ErrorPage errorLink={errorLink} />
-                )
               }
             />
           ))}
